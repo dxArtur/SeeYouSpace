@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 const {User} = require('./User');
-const {Freela} = require('/Freela');
-const { freelaSchema } = require('./Freela');
+const { Freela } = require('./Freela');
+
+
 
 const cowboySchema = new Schema({
     userId: {
         type:Schema.Types.ObjectId,
-        ref: User,
+        ref: 'User',
         required: true
     },
     nick: {
