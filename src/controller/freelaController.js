@@ -1,14 +1,29 @@
+const {Freela: FreelaModel} = require('../models/Freela');
+
+
 const freelaController ={
-    create: async(req, res)=>{
-        res.send('freela created');
+    createFreela: async(req, res)=>{
+        try {
+            const freela = {
+                author: req.body.author,
+                tittle: req.body.tittle,
+                description: req.body.description,
+                reward: req.body.reward,
+                status: req.body.status
+            };
+            const createdFreela = await FreelaModel.create(createdFreela);
+            res.status(201).json({message: 'freela created with sucessfull', createdFreela});
+        } catch (error) {
+            console.log(error);
+        }
     },
-    view: async(req, res)=>{
+    getFreela: async(req, res)=>{
         res.send('see freela');
     },
-    delete: async(req, res)=>{
+    deleteFreela: async(req, res)=>{
         res.send('freela deleted');
     },
-    update: async(req, res)=>{
+    updateFreela: async(req, res)=>{
         res.send('update freela');
     }
 };

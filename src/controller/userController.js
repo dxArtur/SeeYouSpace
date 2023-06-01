@@ -1,75 +1,53 @@
 const {User: UserModel} = require('../models/User');
-const {Cowboy: CowboyModel} = require('../models/Cowboy');
-const {Freela: FreelaModel} = require('../models/Freela');
+const routes = require('../routes/Cowboy');
+//const {createCowboy}=require('../controller/cowboyController');
+const {createShooter}=require('../controller/shooterController');
 const bcrypt = require('bcrypt');
 
 
-
+const userExist = async(req, res)=>{
+    try {
+        const id = req.params.id;
+        if(! (await UserModel.findById(id))){
+            res.status(404).json({message:'user not found'});
+        }
+        return user;
+    } catch (error) {
+        console.log(error)
+    }
+};
 
 
 const userController = {
 
     createUser: async(req, res)=>{
         try {
-            const user ={
-                email: req.body.email,
-                name: req.body.name,
-                password: await bcrypt.hash(req.body.password, 10),
-                type: req.body.type
-            }
-            if(!(emailUsed = await UserModel.findOne({email: user.email}))){
-                const userCreated = await UserModel.create(user);
-                if(user.type==='cowboy'){
-                    this.loginUser;
-                } else{
-                    this.deleteUser;
-                }
-                res.status(201).json({message: 'user created', userCreated});
-            }
-        } catch (error) {
-            
-        }
-    },
-    createCowboy: async (req, res)=>{
-        try {
             const user = {
                 email: req.body.email,
                 name: req.body.name,
-                password: await bcrypt.hash(req.body.password, 10),
-                avatar:  req.body.avatar,
-                type: req.body.type,
-                nick: req.body.nick,
-                treasureChest: req.body.treasureChest,
-                freelaDone: req.body.freelaDone
-            };
+                password: await bcrypt.hash(req.body.password, 2),
+                type: req.body.type
+            }
+            console.log(req.body);
 
-            const emailUsed = await UserModel.findOne({email: user.email})
-            if (!emailUsed){
+            const emailUsed = await UserModel.findOne({email: user.email});
+            if(!emailUsed){
                 const userCreated = await UserModel.create(user);
-
-                const cowboy = {
-                    user: userCreated._id,
-                    nick: user.nick,
-                    treasureChest: user.treasureChest,
-                    freelaDone: user.freelaDone
-                };
-
-                const cowboyCreated = await CowboyModel.create(cowboy);
-
-                res.status(201).json({message: 'cowboy created', cowboyCreated});
-
+                //req.userId=userCreated._id;
+                (user.type === 'cowboy' ? res.redirect('/cowboy/add') : res.redirect('/shooter/add') );
+                //res.status(201).json({message: 'user created', userCreated});
             }
         } catch (error) {
-           console.log(error);
+            console.log(error);
         }
     },
 
     loginUser: async(req, res)=>{
-        res.send('foi cowboy');
+        res.send('route login');
     },
 
     deleteUser: async(req, res)=>{
-        res.send('foi shooter');
+        res.send('route delete');
     },
 
     updateUser: async(req, res)=>{
