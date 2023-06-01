@@ -3,6 +3,10 @@ const cowboyController = require('../controller/cowboyController');
 const router = require('express').Router();
 
 router
+    .route('/cowboy/add')
+    .post((req, res)=>cowboyController.createCowboy(req, res));
+
+router
     .route('/cowboy')
     .get((req, res)=>cowboyController.get(req, res));
 

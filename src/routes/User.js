@@ -3,7 +3,7 @@ const userController = require('../controller/userController');
 
 router
     .route('/user/add')
-    .post((req, res) => userController.createUser(req, res));
+    .post((req, res)=>userController.createUser(req, res));
 
 router
     .route('/user/login')
