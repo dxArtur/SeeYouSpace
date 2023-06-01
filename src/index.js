@@ -1,16 +1,19 @@
 const express = require('express');
-const router = express.Router();
+const bodyParser = require('body-parser');
 const app = express();
 
 //set dotenv
 require('dotenv').config();
 
-//router
-const routes = require('./routes/router');
-app.use('/', routes);
-
 //Allowing you to read JSON files.
 app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+//router
+const routes = require('./routes/router');
+app.use('/space', routes);
+
+
 
 //connecting with the bank
 const conn = require('./db/conn');
