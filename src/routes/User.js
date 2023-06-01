@@ -6,6 +6,10 @@ router
     .post((req, res)=>userController.createUser(req, res));
 
 router
+    .route('/user/all')
+    .get((req, res)=>userController.getAllUsers(req, res));
+
+router
     .route('/user/login')
     .post((req, res)=>userController.loginUser(req, res));
 

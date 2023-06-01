@@ -10,6 +10,10 @@ router
     .get((req, res)=>freelaController.view(req, res));
 
 router
+    .route('/freela/add')
+    .get((req, res)=>freelaController.view(req, res));
+
+router
     .route('/freela')
     .delete((req, res)=>freelaController.delete(req, res));
 

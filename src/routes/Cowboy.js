@@ -12,7 +12,7 @@ router
 
 router
     .route('/cowboy/all')
-    .get((req, res)=>cowboyController.getAll(req, res));
+    .get((req, res)=>cowboyController.getAllCowboy(req, res));
 
 router
     .route('/cowboy/donefreela/:freelaId')
