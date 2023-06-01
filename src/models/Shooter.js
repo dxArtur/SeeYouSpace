@@ -3,7 +3,7 @@ const { User } = require('./User');
 const {Schema} = mongoose;
 
 const shooterSchema = new Schema({
-    useId:{
+    userId:{
         type: Schema.Types.ObjectId,
         ref: User,
         required: true
