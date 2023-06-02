@@ -4,8 +4,11 @@ const {Cowboy: CowboyModel} = require('../models/Cowboy');
 const cowboyController = {
     
     createCowboy: async(req, res)=>{
+        console.log('cwby');
+        console.log(req.params.id);
         try {
             const cowboy = {
+                userId: req.params.id,
                 type: req.body.type,
                 nick: req.body.nick,
                 treasureChest: req.body.treasureChest,

@@ -1,9 +1,14 @@
 const {Shooter: ShooterModel} = require('../models/Shooter');
+const { User: UserModel } = require('../models/User');
+const { Freela: FreelaModel, Freela } = require('../models/Freela');
 
 const shooterController = {
-    createShooter : async(req, res)=>{
+    createShooter : async(req, res, id)=>{
+        console.log('shtr');
+        console.log(req.params.id);
         try {
             const shooter = {
+                userId: req.params.id,
                 accountBalance: req.body.accountBalance,
                 freelasUnfinished: req.body.freelasUnfinished
             }
@@ -61,7 +66,28 @@ const shooterController = {
         } catch (error) {
             console.log(error);
         }
-    }
+    },
+
+    payToCowboy: async(req, res)=>{
+        try {
+            const freela = {};
+            const cowboy ={};
+
+            if(await UserModel.findById(cowboy.id) || await ShooterModel.findById(freela.id)){
+                if(freela.reward<= accountBalance){
+                    accountBalance -=freela.reward;
+                    const shooter = {
+                        accountBalance
+                    }
+                    const accountBalanceUpdated = await ShooterModel.findByIdAndUpdate(shooter.id, shooter);
+
+                    res.status(200).json({accountBalanceUpdated});
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    },
 
 };
 

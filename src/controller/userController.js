@@ -1,5 +1,7 @@
 const {User: UserModel, User} = require('../models/User');
-const routes = require('../routes/Cowboy');
+const cowboy = require('../routes/Cowboy');
+const shooter = require('../routes/Shooter');
+//shooter.route('/cowboy').post
 //const {createCowboy}=require('../controller/cowboyController');
 const {createShooter}=require('../controller/shooterController');
 const bcrypt = require('bcrypt');
@@ -25,7 +27,7 @@ const userController = {
             const user = {
                 email: req.body.email,
                 name: req.body.name,
-                password: await bcrypt.hash(req.body.password, 2),
+                password: await bcrypt.hash(req.body.password, process.env.SALT),
                 type: req.body.type
             }
             console.log(req.body);
@@ -34,8 +36,16 @@ const userController = {
             if(!emailUsed){
                 const userCreated = await UserModel.create(user);
                 //req.userId=userCreated._id;
-                res.status(201).json({message: 'user created', userCreated});
-                (user.type === 'cowboy' ? res.redirect('/cowboy/add') : res.redirect('/shooter/add') );
+                //res.status(201).json({message: 'user created', userCreated});
+                
+                res.redirect(307, `/space/${userCreated.type}/add?_id=${userCreated._id}`);
+                
+                /*
+                (user.type === 'cowboy' 
+                ? res.redirect(`/cowboy/add/?_id=${userCreated._id}`) 
+                : res.redirect(`/shooter/add/?_id=${userCreated._id}`));
+                */
+                
             }
         } catch (error) {
             console.log(error);
@@ -69,7 +79,7 @@ const userController = {
                 const user = {
                     email: req.body.email,
                     name: req.body.name,
-                    password: await bcrypt.hash(req.body.password, 2),
+                    password: await bcrypt.hash(req.body.password, process.env.SALT),
                     type: req.body.type
                 }
                 const userUpdated = await UserModel.findByIdAndUpdate(req.params.id, user);
