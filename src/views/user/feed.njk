@@ -1,0 +1,19 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+{{ title }}
+
+<div class="feed-container">
+    {% for freela in freelas %}
+    <div class="freela-card">
+        <h3>{{ freela.title }}</h3>
+        <p>Author: {{ freela.author.name }}</p>
+        <p>Description: {{ freela.description }}</p>
+        <p>Reward: {{ freela.reward }}</p>
+        <p>Status: {% if freela.status %}Open{% else %}Closed{% endif %}</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

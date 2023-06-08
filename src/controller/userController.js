@@ -4,7 +4,9 @@ const shooter = require('../routes/Shooter');
 //shooter.route('/cowboy').post
 //const {createCowboy}=require('../controller/cowboyController');
 const {createShooter}=require('../controller/shooterController');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const nunjucks = require('nunjucks');
 
 
 const userExist = async(req, res)=>{
@@ -22,23 +24,26 @@ const userExist = async(req, res)=>{
 
 const userController = {
 
+    index: async(req, res)=>{
+        res.render('layout.njk');
+    },
+
     createUser: async(req, res)=>{
         try {
             const user = {
                 email: req.body.email,
                 name: req.body.name,
-                password: await bcrypt.hash(req.body.password, process.env.SALT),
+                password: await bcrypt.hash(req.body.password, Number(process.env.SALT)),
                 type: req.body.type
             }
-            console.log(req.body);
-
             const emailUsed = await UserModel.findOne({email: user.email});
             if(!emailUsed){
+                console.log('criando user')
                 const userCreated = await UserModel.create(user);
                 //req.userId=userCreated._id;
                 //res.status(201).json({message: 'user created', userCreated});
                 
-                res.redirect(307, `/space/${userCreated.type}/add?_id=${userCreated._id}`);
+                //res.redirect(307, `/space/${userCreated.type}/add?_id=${userCreated._id}`);
                 
                 /*
                 (user.type === 'cowboy' 
@@ -50,15 +55,11 @@ const userController = {
         } catch (error) {
             console.log(error);
         }
+        console.log('email ja cadastrado');
     },
 
     loginUser: async(req, res)=>{
-        try {
-            
-        } catch (error) {
-            console.log(error);
-        }
-        res.send('route login');
+        res.render('user/login.njk');
     },
 
     deleteUser: async(req, res)=>{
@@ -79,7 +80,7 @@ const userController = {
                 const user = {
                     email: req.body.email,
                     name: req.body.name,
-                    password: await bcrypt.hash(req.body.password, process.env.SALT),
+                    password: await bcrypt.hash(req.body.password, Number(process.env.SALT)),
                     type: req.body.type
                 }
                 const userUpdated = await UserModel.findByIdAndUpdate(req.params.id, user);
@@ -108,6 +109,33 @@ const userController = {
             res.status(201).json({message: 'all user created', users})
         } catch (error) {
             console.log(error);
+        }
+    },
+
+    auth: async(req, res)=>{
+        try {
+            const {email, password } = req.body;
+            const user = await UserModel.findOne({email});
+            const match = await bcrypt.compare(password, user.password);
+            //const usr = await UserModel.readByEmail(email);
+            if(! user || ! match){
+                console.log('bad auth');
+            }
+
+            const token = await jwt.sign(
+                {userId : user._id},
+                process.env.SECRET_KEY,
+                {expireIn: 3600}//1h
+            );
+
+            const tokenBearer = `Bearer ${token}`;
+
+            req.session.user = user;
+            res.cookie('access_token', tokenBearer, { maxAge: 3600000 }); // 1h
+            res.set('Authorization', tokenBearer);
+            res.redirect('/');
+        } catch (error) {
+            console.log(error)
         }
     }
 }

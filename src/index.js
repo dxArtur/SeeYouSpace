@@ -4,6 +4,7 @@ const app = express();
 const morgan = require('morgan');
 const jwt = require('jsonwebtoken');
 const path = require('path');
+const nunjucks = require('nunjucks');
 
 
 
@@ -25,19 +26,30 @@ app.use('/space', routes);
 const conn = require('./db/conn');
 conn();
 
+app.use(express.static('public'));
+
 app.use(morgan('combined'));
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'njk');
+
+nunjucks.configure('src/views', {
+    autoescape: true,
+    express: app
+});
+
+/*
 app.set('views', path.resolve(__dirname, 'views'));
-app.get('/landing', (req, res)=>{
-    res.render('landingPage');
+app.get('/', (req, res)=>{
+    res.render('layout');
 })
+*/
 
 //open route - public route
+/*
 app.use('/', (req, res, next)=>{
     res.send('see you space');
 });
-
+*/
 
 app.listen(3000, ()=>{
     console.log('see you space...');

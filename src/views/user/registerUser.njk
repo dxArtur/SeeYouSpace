@@ -1,0 +1,42 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+{{ title }}
+
+<div class="box-card-login">
+    <form id="formUser" action="/register" method="post">
+        <div class="form-group label">
+            <label>Email</label>
+        </div>
+        <div class="col-md-6 form-group element">
+            <input type="email" placeholder="email" class="form-control" id="user-email" name="email" required>
+        </div>
+        <div class="form-group label">
+            <label>Senha</label>
+        </div>
+        <div class="col-md-6 form-group element">
+            <input type="password" placeholder="password" class="form-control" id="user-password" name="password" required>
+        </div>
+        <div class="form-group label">
+            <label>Nome</label>
+        </div>
+        <div class="col-md-6 form-group element">
+            <input type="text" placeholder="name" class="form-control" id="user-name" name="name" required>
+        </div>
+        <div class="form-group label">
+            <label>Tipo de Usuário</label>
+        </div>
+        <div class="col-md-6 form-group element">
+            <select class="form-control" id="user-type" name="type" required>
+                <option value="shooter">Shooter</option>
+                <option value="cowboy">Cowboy</option>
+            </select>
+        </div>
+        <div class="col-md-6 form-group element">
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

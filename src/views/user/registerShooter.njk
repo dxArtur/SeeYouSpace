@@ -1,0 +1,27 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+{{ title }}
+
+<div class="box-card-login">
+    <form id="formShooter" action="/register/shooter" method="post">
+        <div class="form-group label">
+            <label>Saldo da Conta</label>
+        </div>
+        <div class="col-md-6 form-group element">
+            <input type="number" placeholder="account balance" class="form-control" id="shooter-account-balance" name="accountBalance" required>
+        </div>
+        <div class="form-group label">
+            <label>Freelas</label>
+        </div>
+        <div class="col-md-6 form-group element">
+            <input type="text" placeholder="freelas" class="form-control" id="shooter-freelas" name="freelas" required>
+        </div>
+        <div class="col-md-6 form-group element">
+            <button type="submit" class="btn btn-primary">Registrar Atirador</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

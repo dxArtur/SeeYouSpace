@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>{{ title }}</title>
+  {% block style %}
+    <style>
+        @font-face {
+        font-family: inter;
+        src: url('../fonts/inter/Inter-ExtraLight.ttf') format('truetype');
+    
+        }
+        /*setando font*/
+        html {
+            font-family: inter, Arial, Helvetica, sans-serif;
+                
+        }
+
+        body {
+            height: 100vh; /* Definir altura total da página */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url('/imgs/bg_space01.jpg');
+            background-size: cover;
+        }
+    </style>
+  {% endblock %}
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+    <div class = "container">
+    <div>
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/popper.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  {% block script %}
+  {% endblock %}
+</body>
+</html>

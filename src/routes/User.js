@@ -6,12 +6,20 @@ router
     .post((req, res)=>userController.createUser(req, res));
 
 router
+    .route('/user/index')
+    .get((req, res)=>userController.index(req, res));
+
+router
     .route('/user/all')
     .get((req, res)=>userController.getAllUsers(req, res));
 
 router
     .route('/user/login')
-    .post((req, res)=>userController.loginUser(req, res));
+    .get((req, res)=>userController.loginUser(req, res));
+
+router
+    .route('/user/login')
+    .post((req, res)=>userController.auth(req, res));
 
 router
     .route('/user/:id')
