@@ -21,6 +21,10 @@ router
     .route('/freela')
     .put((req, res)=>freelaController.update(req, res));
 
+    router
+    .route('/watch')
+    .get((req, res)=>freelaController.testWatch(req, res));
+
 /*routes ideias
     search, view
 */
