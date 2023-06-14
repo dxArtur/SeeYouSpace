@@ -4,8 +4,12 @@
 
 {{ title }}
 
+
+<h1>userId<h1>
+
 <div class="box-card-login">
     <form id="formCowboy" action="/register/cowboy" method="post">
+    <input type = "hidden" value ={{userId}} name="id">
         <div class="form-group label">
             <label>Nick</label>
         </div>

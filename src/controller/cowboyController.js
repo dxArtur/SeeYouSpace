@@ -2,18 +2,22 @@ const {Cowboy: CowboyModel} = require('../models/Cowboy');
 
 
 const cowboyController = {
+
+    getCreateCowboy: async(req, res)=>{
+        console.log('...')
+        res.render('cowboy/registerCowboy.njk')
+    },
     
     createCowboy: async(req, res)=>{
         console.log('cwby');
-        console.log(req.params.id);
         try {
             const cowboy = {
                 userId: req.params.id,
-                type: req.body.type,
                 nick: req.body.nick,
                 treasureChest: req.body.treasureChest,
                 freelaDone: req.body.freelaDone
             };
+            console.log(cowboy);
             const cowboyCreated = await CowboyModel.create(cowboy);
             res.status(201).json({message: 'cowboy created', cowboyCreated});
 

@@ -4,6 +4,10 @@ const router = require('express').Router();
 
 router
     .route('/cowboy/add')
+    .get((req, res)=>cowboyController.getCreateCowboy(req, res));
+
+router
+    .route('/cowboy/add')
     .post((req, res)=>cowboyController.createCowboy(req, res));
 
 router
