@@ -8,6 +8,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const nunjucks = require('nunjucks');
 const cowboyController = require('./cowboyController');
+const shooterController = require('./shooterController')
 
 
 const userExist = async(req, res)=>{
@@ -24,7 +25,6 @@ const userExist = async(req, res)=>{
 
 
 const userController = {
-
     getCreateUser: async(req, res)=>{
         res.render('user/registerUser.njk');
     },
@@ -37,20 +37,18 @@ const userController = {
                 password: await bcrypt.hash(req.body.password, Number(process.env.SALT)),
                 type: req.body.type
             }
-            //const emailUsed = await UserModel.findOne({email: user.email});
-            const emailUsed = false
+            const emailUsed = await UserModel.findOne({email: user.email});
             if(!emailUsed){
-                console.log('criando user')
-                //const userCreated = await UserModel.create(user);
+                const userCreated = await UserModel.create(user);
                 //req.userId=userCreated._id;
                 //res.status(201).json({message: 'user created', userCreated});
                 res.locals.userId = userCreated._id
-
                 if(req.body.type === 'cowboy') {
                     return cowboyController.getCreateCowboy(req, res)
                     //return res.redirect(307, 'cowboy/registerCowboy')
                 }else {
-                    return res.redirect(307, 'shooter/registerShooter')
+                    return shooterController.getCreateShooter(req, res)
+                    //return res.redirect(307, 'shooter/registerShooter')
                 }
                 
                 //res.redirect(307, `/space/${userCreated.type}/add?_id=${userCreated._id}`);
@@ -65,7 +63,6 @@ const userController = {
         } catch (error) {
             console.log(error);
         }
-        console.log('email ja cadastrado');
     },
 
     loginUser: async(req, res)=>{

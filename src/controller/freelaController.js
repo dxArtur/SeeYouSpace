@@ -1,20 +1,21 @@
 const {Freela: FreelaModel} = require('../models/Freela');
 
-const nunjucks = require('nunjucks');
-
-
 const freelaController ={
+    getCreateFreela: async(req, res)=>{
+        res.render('freela/registerFreela.njk');
+    },
+
     createFreela: async(req, res)=>{
         try {
             const freela = {
                 author: req.body.author,
-                tittle: req.body.tittle,
+                title: req.body.title,
                 description: req.body.description,
                 reward: req.body.reward,
                 status: req.body.status
             };
-            const createdFreela = await FreelaModel.create(createdFreela);
-            res.status(201).json({message: 'freela created with sucessfull', createdFreela});
+            const freelaCreated = await FreelaModel.create(freela);
+            res.status(201).json({message: 'freela created with sucessfull', freelaCreated});
         } catch (error) {
             console.log(error);
         }
@@ -33,7 +34,7 @@ const freelaController ={
     getAllFreelas: async(req, res)=>{
         try {
             const freelas = await FreelaModel.find();
-            res.status(200).json({freelas});
+            res.status(201).json({freelas});
          } catch (error) {
              console.log(error);
          }
@@ -55,7 +56,7 @@ const freelaController ={
             if(await FreelaModel.findById(req.params.id)){
                 const freela = {
                     author: req.body.author,
-                    tittle: req.body.tittle,
+                    title: req.body.title,
                     description: req.body.description,
                     reward: req.body.reward,
                     status: req.body.status
