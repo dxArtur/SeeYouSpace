@@ -3,12 +3,11 @@ const userController = require('../controller/userController');
 
 router
     .route('/user/add')
-    .post((req, res)=>userController.createUser(req, res));
+    .get((req, res)=>userController.getCreateUser(req, res));
 
 router
     .route('/user/add')
-    .get((req, res)=>userController.getCreateUser(req, res));
-
+    .post((req, res)=>userController.createUser(req, res));
 
 router
     .route('/user/index')

@@ -13,4 +13,7 @@ router.use('/', shooterRouter);
 const freelaRouter = require('./Freela');
 router.use('/', freelaRouter);
 
+const feedRouter = require('./feed');
+router.use('/', feedRouter);
+
 module.exports = router;
