@@ -6,7 +6,7 @@ const { Freela } = require('./Freela');
 
 
 const cowboySchema = new Schema({
-    userId: {
+    _userId: {
         type:Schema.Types.ObjectId,
         ref: 'User',
         required: true

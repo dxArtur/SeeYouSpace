@@ -3,7 +3,7 @@ const { User } = require('./User');
 const {Schema} = mongoose;
 
 const shooterSchema = new Schema({
-    userId:{
+    _userId:{
         type: Schema.Types.ObjectId,
         ref: User,
         required: true
@@ -12,7 +12,7 @@ const shooterSchema = new Schema({
         type: Number,
         required: true
     },
-    freelas:[{
+    freelasToDo:[{
         type: Schema.Types.ObjectId,
         ref:'Freelas',
         required: true
