@@ -37,7 +37,9 @@
 <body>
   <div id="container" class="container">
     {%block header %}
+      {% if user %}
       {% include "header.njk" %}
+      {% endif %}
     {% endblock %}
     {% block content %}
       
