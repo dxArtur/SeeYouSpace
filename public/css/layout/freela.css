@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'inter';
+    src: url('../fonts/inter/Inter-Regular.ttf') format('truetype');
+    
+}
+
+@font-face {
+    font-family: 'inter-thin';
+    src: url('../fonts/inter/Inter-Thin.ttf') format('truetype');
+    
+}
+
+
+.freela-card{
+    background-color: var(--color-background);
+    height:100%;
+    width: 100%;
+}
+
+
+.row-vertical{
+    border: solid 1px white;
+    width: 50%;
+}
+
+.freela-card{
+    font-family: 'inter', Arial, Helvetica, sans-serif;
+}
+
+.freela-link{
+    text-decoration: none;
+    color: inherit
+}
+
+.freela-card :not(.title-freela){
+    text-align: right;
+}
+
+.author-link{
+    text-decoration: none;
+    color: var(--color-green)
+}
+
+.freela-container{
+    background-color: var(--color-background);
+    color: white;
+}

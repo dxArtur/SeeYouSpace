@@ -10,7 +10,7 @@ router
     .post((req, res)=>freelaController.createFreela(req, res));
 
 router
-    .route('/freela/all')
+    .route('/freelaAll')
     .get((req, res)=>freelaController.getAllFreelas(req, res));
 
 router
@@ -19,7 +19,7 @@ router
 
 router
     .route('/freela/:id')
-    .delete((req, res)=>freelaController.delete(req, res));
+    .delete((req, res)=>freelaController.deleteFreela(req, res));
 
 router
     .route('/freela/:id')

@@ -65,7 +65,7 @@ const userController = {
         }
     },
 
-    loginUser: async(req, res)=>{
+    renderLogin: async(req, res)=>{
         res.render('user/login.njk');
     },
 
@@ -101,10 +101,9 @@ const userController = {
 
     getUser: async(req, res)=>{
         try {
-            if(await UserModel.find(req.params.id)){
-                const userSelected = await UserModel.findById(req.params.id);
-                res.status(201).json({message: 'user selected', userSelected});
-            }
+            const userSelected = await UserModel.findById(req.params.id)
+            console.log(userSelected);
+            res.status(201).json({message: 'user selected', userSelected});
         } catch (error) {
             console.log(error);
         }
@@ -119,7 +118,21 @@ const userController = {
         }
     },
 
-    auth: async(req, res)=>{
+    cleanDB: async(req, res)=>{
+        try {
+            const users = await UserModel.find();
+            for (let i = 0; i < users.length; i++) {
+              const user = users[i];
+              console.log('Deleting user:', user);
+              await UserModel.deleteOne({ _id: user._id });
+            }
+            res.status(201).json({ message: 'All users deleted' })
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
+    loginUser: async(req, res)=>{
         try {
             const {email, password } = req.body;
             const user = await UserModel.findOne({email});
@@ -130,10 +143,11 @@ const userController = {
             }
 
             const token = await jwt.sign(
-                {userId : user._id},
+                {userId : user._id,
+                email: user.email
+                },
                 process.env.SECRET_KEY,
-                {expireIn: 3600}//1h
-            );
+                {expireIn: "1h"});
 
             const tokenBearer = `Bearer ${token}`;
 

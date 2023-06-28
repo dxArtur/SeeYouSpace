@@ -14,7 +14,7 @@ router
     .get((req, res)=>shooterController.getShooter(req, res));
 
     router
-    .route('/shooter/all')
+    .route('/shooterAll')
     .get((req, res)=>shooterController.getAllShooter(req, res));
 
 router

@@ -1,0 +1,69 @@
+.menu-container {
+    background-color: var(--color-background);
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100%;
+    padding: 2%;
+  }
+
+  .menu-top {
+    justify-content: space-between;
+  }
+  .menu-top ul li{
+    justify-content: center;
+  }
+  
+  .menu-top ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .menu-top .items-menu{
+    justify-content: space-between;
+    margin-right: 3%;
+  }
+  
+  .menu-top a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .menu-top a:hover {
+    color: #ccc;
+  }
+  
+  .menu-top li form {
+    display: flex;
+  }
+  
+  .form{
+    flex-grow: 0.7;
+  }
+  
+ .items-menu{
+    display: flex;
+    justify-content: space-between;
+ }
+
+
+ .items-menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .items-menu > * {
+    margin-right: 20px; /* Espaçamento entre os itens */
+  }
+  
+  .items-menu > *:last-child {
+    margin-right: 0; /* Remover margem do último item */
+  }
+  
+  

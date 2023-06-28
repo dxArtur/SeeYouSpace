@@ -1,0 +1,35 @@
+.menu-top li form input {
+    border-radius: 10px 0px 0px 10px;
+    border-style: none;
+    width: 70%;
+    height: 25px;
+    
+}
+
+.menu-top li form button {
+    border-radius: 0px 10px 10px 0px;
+    border-style: none;
+}
+
+
+.form-group input{
+    border-radius: 8px;
+    border:none;
+    height: 25px;
+    text-align: center;
+    
+}
+
+.box-card-login input::placeholder {
+    text-align: center; /* Centraliza horizontalmente */
+    line-height: inherit; /* Centraliza verticalmente */
+  }
+
+/*estilizando botão*/
+.form-group button{
+    border-radius: 10px;
+    border: none;
+    background-color: var(--color-green);
+    color: white;
+    height: 25px;
+}

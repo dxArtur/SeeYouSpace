@@ -51,7 +51,8 @@ const shooterController = {
     getShooter: async(req, res)=>{
         try {
             const shooter = await ShooterModel.findById(req.params.id);
-            if(shooter){
+            if (shooter) {
+                console.log(shooter)
                 res.status(201).json({message: 'this is shooter', shooter})
             }
         } catch (error) {

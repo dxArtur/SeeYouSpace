@@ -1,0 +1,39 @@
+{% extends "layout.njk" %}
+
+{% include "header.njk"%}
+
+{% block content %}
+
+{{ title }}
+
+{% endif %}
+{% if user.type ==='shooter' %}
+<div class="addFreela">
+    <button class="createNewFreela">
+</div>
+{% endif %}
+<div class="myfreela-container">
+    <div class="freela-container">
+        {% for freela in freelas %}
+            {% if freela.status %}
+                <a href="/space/freela/{{ freela._id }}" class="freela-link" method="GET">
+                    <div class="freela-card">
+                        <h3 class="title-freela">{{ freela.title }}</h3>
+                        <div class="row-vertical"></div>
+                        <p class="reward-freela">{{ freela.reward }} Treasure Chest</p>
+                        {% set author = null %}
+                        <p class="author-freela">
+                            {% for user in users %}
+                                {%if user._id.toString() == freela.author.toString()%}
+                                    {% set author = user.name%}
+                                    <a href="/space/user/{{ user._id }}" class="author-link">{{ author}}</a>
+                                {%endif%}
+                            {%endfor%}
+                        </p>
+                    </div>
+                </a>
+            {% endif %}    
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

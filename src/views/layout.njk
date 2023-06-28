@@ -6,6 +6,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/layout/header.css">
+  <link rel="stylesheet" href="/css/layout/freela.css">
+  <link rel="stylesheet" href="/css/components/components.css">
   <title>{{ title }}</title>
   {% block style %}
     <style>
@@ -32,10 +35,14 @@
   {% endblock %}
 </head>
 <body>
-    {% block content %}
+  <div id="container" class="container">
+    {%block header %}
+      {% include "header.njk" %}
     {% endblock %}
-    <div class = "container">
-    <div>
+    {% block content %}
+      
+    {% endblock %}
+  </div>
   <script src="/js/jquery.min.js"></script>
   <script src="/js/popper.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>

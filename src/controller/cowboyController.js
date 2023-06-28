@@ -28,18 +28,18 @@ const cowboyController = {
     getCowboy: async(req, res)=>{
         try {
             const cowboy = await CowboyModel.findById(req.params.id);
+            console.log(cowboy)
             if(cowboy){
                 res.status(201).json({message: 'this is cowboy', cowboy})
             }
         } catch (error) {
             console.log(error);
         }
-
     },
 
     getAllCowboy: async(req, res)=>{
         try {
-           const cowboys = await CowboyModel.find();
+           const cowboys = await CowboyModel.find()
            res.status(200).json({cowboys});
         } catch (error) {
             console.log(error);

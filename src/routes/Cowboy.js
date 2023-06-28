@@ -11,11 +11,11 @@ router
     .post((req, res)=>cowboyController.createCowboy(req, res));
 
 router
-    .route('/cowboy')
-    .get((req, res)=>cowboyController.get(req, res));
+    .route('/cowboy/:id')
+    .get((req, res)=>cowboyController.getCowboy(req, res));
 
 router
-    .route('/cowboy/all')
+    .route('/cowboyAll')
     .get((req, res)=>cowboyController.getAllCowboy(req, res));
 
 router

@@ -2,12 +2,10 @@
 
 {% block content %}
 
-{{ title }}
-
-<div class="freela-details">
-    <h3>{{ freela.title }}</h3>
-    <p>Author: {{ freela.author.name }}</p>
-    <p>Description: {{ freela.description }}</p>
+<div class="freela-container">
+    <h3>{{ freela.data.title }}</h3>
+    <p>Author: {{ freela.author }}</p>
+    <p>Description: {{ freela.data.description }}</p>
     <p>Reward: {{ freela.reward }}</p>
     <p>Status: {% if freela.status %}Open{% else %}Closed{% endif %}</p>
     {% if freela.status %}

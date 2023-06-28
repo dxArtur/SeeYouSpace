@@ -1,0 +1,26 @@
+{% extends "layout.njk" %}
+{% block header %}
+<header>
+  <div class="menu-container">
+    <nav class="menu-top">
+      <ul>
+        <li><a href="/">See You Space</a></li>
+        <li class="form">
+          <form action="/search" method="GET">
+            <input type="text" name="query" placeholder="Search...">
+            <button type="submit">Search</button>
+          </form>
+        </li>
+        <nav class="items-menu">
+          <li><a href="/about">freelas</a></li>
+          <li><a href="/contact">profile</a></li>
+          <li><a href="/contact">seetings</a></li>
+        </nav>
+        <nav>
+          <li>hi, {{ name }}!</li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+{% endblock %}

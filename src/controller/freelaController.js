@@ -20,12 +20,16 @@ const freelaController ={
             console.log(error);
         }
     },
+    renderFreela:async(req, res)=>{
+        res.render('freela/freela.njk', freelaSelected)
+    },
     getFreela: async(req, res)=>{
+        console.log('acessou essa rota')
         try {
-            if(await FreelaModel.find(req.params.id)){
-                const freelaSelected = await FreelaModel.findById(req.params.id);
-                res.status(201).json({message: 'freela selected', freelaSelected});
-            }
+            const freela = await FreelaModel.findById(req.params.id);
+            //res.status(201).json({message: 'freela found is', freelaSelected});
+            console.log(freela)
+            res.render('freela/freela.njk', freela)
         } catch (error) {
             console.log(error);
         }
