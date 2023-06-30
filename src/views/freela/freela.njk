@@ -19,7 +19,7 @@
     </p>
     <p>Reward: {{ freela.reward }} treasureChest</p>
     {% if freela.status %}
-        <form action="/space/acceptFreela" method="post">
+        <form action="/space/cowboy/acceptFreela" method="post">
             <input type="hidden" name="freelaId" value="{{ freela._id }}">
             <input type="submit" value="Accept Freela">
         </form>
