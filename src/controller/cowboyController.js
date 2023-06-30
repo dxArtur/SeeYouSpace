@@ -1,4 +1,5 @@
 const {Cowboy: CowboyModel} = require('../models/Cowboy');
+const { renderIndex } = require('./indexController');
 
 
 const cowboyController = {
@@ -65,7 +66,7 @@ const cowboyController = {
                     treasureChest: req.body.treasureChest,
                     freelaDone: req.body.freelaDone
                 }
-                const cowboyUpdated = await CowboyModel.findByIdAndUpdate(cowboy);
+                const cowboyUpdated = await CowboyModel.findByIdAndUpdate(req.params.id, cowboy);
                 res.status(201).json({message: 'cowboy updated', cowboyUpdated});
            }
         } catch (error) {
@@ -87,13 +88,20 @@ const cowboyController = {
     acceptFreela: async(req, res)=>{
         try {
             const freelaId = req.body.freelaId;
-            const cowboyId = req.user._id;  
+            const userId = req.session.user._id;
+            const cowboy = await CowboyModel.find({ userId: userId })
+            if (cowboy) {
+                if (await FreelaModel.findById(freelaId)) {
+                    const freelasCopy = [...cowboy.freelasDone, {freelaId: freelaId}]
 
-            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                    const updatedFreelas = {
+                        freelaDone: freelasCopy
+                    }
 
-            console.log(freelaId)
-            console.log(cowboyId)
-            res.status(201).json({message:'cowboy deleted'})
+                    const updatedCowboy = await CowboyModel.findByIdAndUpdate(req.params.id, updatedFreelas);
+                    return renderIndex(req, res)
+                }
+            }
         } catch (error) {
             console.log(error)
         }
