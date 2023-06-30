@@ -8,20 +8,24 @@
 
 <div class ="box-card-login">
     
-        <form id="formUser" action="/space/user/login" method="post">
-            <div class="form-group label">
-                <label>Login</label>
-            </div>
+    <form id="formUser" action="/space/user/login" method="post">
+        <div class="form-group label">
+            <label>Login</label>
+        </div>
+        <div class="col-md-6 form-group element">
+            <input type="email" placeholder="email" class="form-control" id="user-email" name="email">
+        </div>
+        <div class="col-md-6 form-group element">
+            <input type="password" placeholder="password" class="form-control" id="user-password" name="password">
+        </div>
             <div class="col-md-6 form-group element">
-                <input type="email" placeholder="email" class="form-control" id="user-email" name="email">
-            </div>
-            <div class="col-md-6 form-group element">
-                <input type="password" placeholder="password" class="form-control" id="user-password" name="password">
-            </div>
-             <div class="col-md-6 form-group element">
-                <button type="submit" class="btn btn-primary">See You Space</button>
-            </div>
-        </form>
-    </div>
+            <button type="submit" class="btn btn-primary">See You Space</button>
+        </div>
+        
+    </form>
+</div>
+<br>
+<div class="card-register">
+    <a class="btn-register" href="/space/user/add"> register> </a>
 </div>
 {% endblock %}

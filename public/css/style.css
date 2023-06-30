@@ -45,6 +45,7 @@ body {
     flex-direction: column;
     align-items: center;
     margin: 1%;
+    justify-content: center;
   }
   
   .box-card-login .row {
@@ -133,7 +134,7 @@ h1{
 
 :root{
     --color-gray-background: #474747;
-    --color-white-background: white;
+    --color-white: white;
     --color-background: #292929;
     --color-green: rgb(21, 184, 21);
 }

@@ -43,3 +43,12 @@
     height: 25px;
     float: right;
 }
+
+.card-register{
+    text-align: center; 
+}
+
+.btn-register{
+    color: var(--color-white);
+    opacity: 0.7;
+}
