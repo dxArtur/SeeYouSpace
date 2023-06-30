@@ -15,8 +15,12 @@ router
     .get((req, res)=>cowboyController.getCowboy(req, res));
 
 router
+    .route('/acceptFreela')
+    .post((req, res)=>cowboyController.getCowboy(req, res))
+
+router
     .route('/cowboyAll')
-    .get((req, res)=>cowboyController.getAllCowboy(req, res));
+    .post((req, res)=>cowboyController.getAllCowboy(req, res));
 
 router
     .route('/cowboy/donefreela/:freelaId')

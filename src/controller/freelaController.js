@@ -1,4 +1,5 @@
 const {Freela: FreelaModel} = require('../models/Freela');
+const {User: UserModel } = require('../models/User');
 
 const freelaController ={
     getCreateFreela: async(req, res)=>{
@@ -24,12 +25,12 @@ const freelaController ={
         res.render('freela/freela.njk', freelaSelected)
     },
     getFreela: async(req, res)=>{
-        console.log('acessou essa rota')
         try {
             const freela = await FreelaModel.findById(req.params.id);
+            const users = await UserModel.find()
             //res.status(201).json({message: 'freela found is', freelaSelected});
             console.log(freela)
-            res.render('freela/freela.njk', freela)
+            res.render('freela/freela.njk', {freela, users})
         } catch (error) {
             console.log(error);
         }

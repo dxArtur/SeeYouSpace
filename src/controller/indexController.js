@@ -7,7 +7,11 @@ const feedController ={
     renderIndex: async(req, res)=>{
         let freelas = null
         let users = null
-        const { name } = req.session.user
+        let name
+        if (req.session.user) {
+            console.log(req.session.user)
+            name = req.session.user
+        }
         try {
             freelas = await FreelaModel.find()
             console.log('freelas: '+freelas)
@@ -16,7 +20,12 @@ const feedController ={
         } catch (error) {
             console.log(error)
         }
-        res.render('index.njk', {freelas, users, name})
+        res.render('index.njk', {freelas, users, user: name})
+    },
+
+    renderProfile: async(req, res)=>{
+        const user = req.session.user
+        res.render('profile.njk', { user })
     }
 }
 

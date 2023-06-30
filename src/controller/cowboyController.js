@@ -84,6 +84,21 @@ const cowboyController = {
         }
     },
 
+    acceptFreela: async(req, res)=>{
+        try {
+            const freelaId = req.body.freelaId;
+            const cowboyId = req.user._id;  
+
+            console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+
+            console.log(freelaId)
+            console.log(cowboyId)
+            res.status(201).json({message:'cowboy deleted'})
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 };
 
 module.exports= cowboyController;

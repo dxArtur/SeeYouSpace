@@ -9,6 +9,8 @@ const bcrypt = require('bcrypt');
 const nunjucks = require('nunjucks');
 const cowboyController = require('./cowboyController');
 const shooterController = require('./shooterController')
+const feedController = require('./indexController');
+const { Freela: FreelaModel } = require('../models/Freela');
 
 
 const userExist = async(req, res)=>{
@@ -103,7 +105,12 @@ const userController = {
         try {
             const userSelected = await UserModel.findById(req.params.id)
             console.log(userSelected);
-            res.status(201).json({message: 'user selected', userSelected});
+
+            const freelas = await FreelaModel.find()
+
+
+            res.render('user/seeUser.njk', {user: userSelected, freelas})
+            //res.status(201).json({message: 'user selected', userSelected});
         } catch (error) {
             console.log(error);
         }
@@ -146,15 +153,15 @@ const userController = {
                 {userId : user._id,
                 email: user.email
                 },
-                process.env.SECRET_KEY,
-                {expireIn: "1h"});
+                process.env.SECRET,
+                {expiresIn: "1h"});
 
             const tokenBearer = `Bearer ${token}`;
 
             req.session.user = user;
             res.cookie('access_token', tokenBearer, { maxAge: 3600000 }); // 1h
             res.set('Authorization', tokenBearer);
-            res.redirect('/');
+            return feedController.renderIndex(req, res);
         } catch (error) {
             console.log(error)
         }

@@ -14,7 +14,7 @@
 .freela-card{
     background-color: var(--color-background);
     height:100%;
-    width: 100%;
+    width: 500px;
 }
 
 
@@ -32,8 +32,13 @@
     color: inherit
 }
 
-.freela-card :not(.title-freela){
+.freela-card{
     text-align: right;
+}
+
+.title-freela{
+    text-align: left;
+    margin-left: 5%;
 }
 
 .author-link{
@@ -44,4 +49,12 @@
 .freela-container{
     background-color: var(--color-background);
     color: white;
+}
+
+.freela-view-container{
+    background-color: var(--color-background);
+    color: white;
+    padding: 3%;
+    padding-bottom: 13%;
+    border-radius: 10px;
 }

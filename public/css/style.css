@@ -125,13 +125,17 @@ h1{
 }
 
 
-.feed-container{
-    color:white;
-    background-color: var(--color-gray-background);
-}
+
+
+
+
+
 
 :root{
     --color-gray-background: #474747;
+    --color-white-background: white;
     --color-background: #292929;
     --color-green: rgb(21, 184, 21);
 }
+
+

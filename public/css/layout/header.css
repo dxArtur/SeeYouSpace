@@ -24,6 +24,9 @@
 
   .menu-top .items-menu{
     justify-content: space-between;
+  }
+
+  .menu-top .welcome{
     margin-right: 3%;
   }
   

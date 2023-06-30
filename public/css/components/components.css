@@ -33,3 +33,13 @@
     color: white;
     height: 25px;
 }
+
+
+.btn-accept{
+    border-radius: 10px;
+    border: none;
+    background-color: var(--color-green);
+    color: white;
+    height: 25px;
+    float: right;
+}

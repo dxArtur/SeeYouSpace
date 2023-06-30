@@ -9,6 +9,7 @@ const path = require('path');
 const nunjucks = require('nunjucks');
 const MongoStore = require('connect-mongo');
 const flash = require('flash')
+const { isCelebrateError } = require('celebrate');
 
 const logger = require('morgan');
 
@@ -76,6 +77,9 @@ app.use('/', (req, res, next)=>{
     res.send('see you space');
 });
 */
+
+
+
 
 app.listen(3000, ()=>{
     console.log('see you space...');

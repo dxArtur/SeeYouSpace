@@ -1,23 +1,30 @@
 {% extends "layout.njk" %}
+{% include "header.njk" %}
 
 {% block content %}
 
-<div class="freela-container">
-    <h3>{{ freela.data.title }}</h3>
-    <p>Author: {{ freela.author }}</p>
-    <p>Description: {{ freela.data.description }}</p>
-    <p>Reward: {{ freela.reward }}</p>
-    <p>Status: {% if freela.status %}Open{% else %}Closed{% endif %}</p>
+<div class="freela-view-container">
+    <input type = "hidden" value ="{{_id}}" name="id">
+    <h3>{{ freela.title }}</h3>
+    <p class="author-freela">Author:
+        {% for user in users %}
+            {%if user._id.toString() == freela.author.toString()%}
+                {% set author = user.name%}
+                <a href="/space/user/{{ user._id }}" class="author-link">{{ author}}</a>
+            {%endif%}
+        {%endfor%}
+    </p>
+    <p>Description: 
+        {{ freela.description }}
+    </p>
+    <p>Reward: {{ freela.reward }} treasureChest</p>
     {% if freela.status %}
-        {% if currentUser and currentUser._id != freela.author._id %}
-            <button class="btn-accept" onclick="acceptFreela('{{ freela._id }}')">Accept Freela</button>
-        {% endif %}
+        <form action="/space/acceptFreela" method="post">
+            <input type="hidden" name="freelaId" value="{{ freela._id }}">
+            <input type="submit" value="Accept Freela">
+        </form>
     {% else %}
-        {% if currentUser and currentUser._id == freela.cowboy._id %}
-            <button class="btn-complete" onclick="completeFreela('{{ freela._id }}')">Mark as Completed</button>
-        {% else %}
-            <label>Freela in progress</label>
-        {% endif %}
+        <button class="btn-complete" onclick="completeFreela('{{ freela._id }}')">Mark as Completed</button>
     {% endif %}
 </div>
 
