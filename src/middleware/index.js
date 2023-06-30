@@ -16,7 +16,7 @@ const isAuthenticated = async (req, res, next) => {
     if (access_token) {
       try {
         const [, token] = access_token.split(' ');
-        await jwt.verify(token, process.env.SECRET_KEY);
+        await jwt.verify(token, process.env.SECRET);
   
         return next();
       } catch (error) {
