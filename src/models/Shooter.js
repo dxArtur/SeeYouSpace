@@ -15,7 +15,7 @@ const shooterSchema = new Schema({
     freelasToDo:[{
         type: Schema.Types.ObjectId,
         ref:'Freelas',
-        required: true
+        required: false
     }]
 
 });

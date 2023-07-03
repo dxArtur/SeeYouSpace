@@ -1,5 +1,6 @@
 const {Freela: FreelaModel} = require('../models/Freela');
 const {User: UserModel } = require('../models/User');
+const {Cowboy: CowboyModel} = require('../models/Cowboy');
 
 const freelaController ={
     getCreateFreela: async(req, res)=>{
@@ -23,6 +24,19 @@ const freelaController ={
     },
     renderFreela:async(req, res)=>{
         res.render('freela/freela.njk', freelaSelected)
+    },
+    renderMyFreela: async(req, res) =>{
+        let freelas
+        try {
+            const userId = req.session.user._id;
+            const cowboy = await CowboyModel.findOne({ _userId: userId }).exec()
+            console.log(cowboy.freelaToDo)
+            freelas = cowboy.freelaToDo
+
+        } catch (error) {
+            
+        }
+        res.render('freela/myFreela.njk', freelas)
     },
     getFreela: async(req, res)=>{
         try {

@@ -12,8 +12,7 @@ const shooterController = {
         try {
             const shooter = {
                 _userId: req.body.id,
-                accountBalance: req.body.accountBalance,
-                freelasToDo: req.body.freelasToDo
+                accountBalance: req.body.accountBalance
             }
             const shooterCreated = await ShooterModel.create(shooter);
             res.status(201).send({message: 'shooter created', shooterCreated})

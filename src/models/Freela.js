@@ -5,7 +5,7 @@ const { Shooter } = require('./Shooter');
 const freelaSchema = new Schema({
     author: {
         type: Schema.Types.ObjectId,
-        ref:Shooter,
+        ref:'Shooter',
         required: true
     },
     title: {
@@ -23,6 +23,15 @@ const freelaSchema = new Schema({
     status: {
         type: Boolean,
         required: true
+    },
+    responasble: {
+        type: Schema.Types.ObjectId,
+        ref:'Shooter',
+        required: false
+    },
+    visibility: {
+        type: Boolean,
+        default: true
     }
 
 });

@@ -6,6 +6,10 @@ router
     .get((req, res)=>freelaController.getCreateFreela(req, res))
 
 router
+    .route('/myfreelas')
+    .get((req, res)=>freelaController.renderMyFreela(req, res));
+
+router
     .route('/freela/add')
     .post((req, res)=>freelaController.createFreela(req, res));
 

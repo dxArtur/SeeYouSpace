@@ -17,15 +17,15 @@ router
 router.route('/user/:id').get((req, res)=>userController.getUser(req, res))
 
 router
-    .route('/user/all')
+    .route('/userAll')
     .get((req, res)=>userController.getAllUsers(req, res));
 
 router
-    .route('/user/login')
+    .route('/login')
     .get((req, res)=>userController.renderLogin(req, res));
 
 router
-    .route('/user/login')
+    .route('/login')
     .post((req, res)=>userController.loginUser(req, res));
 
 router
@@ -34,6 +34,10 @@ router
 
 router.route('/user/:id')
     .put(middleware.isAuthenticated, (req, res)=>userController.updateUser(req, res));
+
+router
+    .route('/signout')
+    .get(middleware.isAuthenticated, (req, res)=>userController.signout(req, res))
 
 router.route('/clean').delete((req, res)=>userController.cleanDB(req, res))
 

@@ -20,16 +20,14 @@ const isAuthenticated = async (req, res, next) => {
   
         return next();
       } catch (error) {
-        req.session.user = null; // session's over
+        req.session.user = null;
         req.flash('info', msg);
         return userController.renderLogin(req, res)
-        //return res.redirect('/space/user/login');
       }
     } else {
-      req.session.user = null; // session's over
+      req.session.user = null;
       req.flash('info', msg);
       return userController.renderLogin(req, res)
-      //return res.redirect('/space/user/login');
     }
   };
 

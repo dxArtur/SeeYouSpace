@@ -1,5 +1,7 @@
-const {Cowboy: CowboyModel} = require('../models/Cowboy');
+const {Cowboy: CowboyModel, cowboySchema} = require('../models/Cowboy');
 const { renderIndex } = require('./indexController');
+const { Freela: FreelaModel} = require('../models/Freela')
+const { Schema } = require('mongoose');
 
 
 const cowboyController = {
@@ -13,13 +15,13 @@ const cowboyController = {
             const cowboy = {
                 _userId: req.body.id,
                 nick: req.body.nick,
-                treasureChest: req.body.treasureChest,
-                freelaDone: req.body.freelaDone
+                treasureChest: req.body.treasureChest
             };
-            console.log('-------------')
-            console.log(cowboy)
             const cowboyCreated = await CowboyModel.create(cowboy);
-            res.status(201).json({message: 'cowboy created', cowboyCreated});
+            if (req.session) {
+                    
+            }
+            res.redirect('/space/feed')
 
         } catch (error) {
             console.log(error);
@@ -48,9 +50,11 @@ const cowboyController = {
 
     },
     
-    getCowboyByName: async(req, res)=>{
+    getCowboyByUserId: async(req, res)=>{
         try {
-            console.log('find by name');
+            const userId = '648d34851504e3cdd3c8fd15'
+            const cowboy = await CowboyModel.findOne({userId: userId}).exec()
+            console.log(cowboy)
         } catch (error) {
             console.log(error);
         }
@@ -87,20 +91,39 @@ const cowboyController = {
 
     acceptFreela: async(req, res)=>{
         try {
-            const freelaId = req.body.freelaId;
+            const freelaId = req.body.freelaId
             const userId = req.session.user._id;
-            const cowboy = await CowboyModel.find({ userId: userId })
-            if (cowboy) {
-                if (await FreelaModel.findById(freelaId)) {
-                    const freelasCopy = [...cowboy.freelasDone, {freelaId: freelaId}]
+            const freelaAccepted = await FreelaModel.findById(freelaId)
+            const cowboy = await CowboyModel.findOne({ _userId: userId }).exec()
+            if (cowboy && freelaAccepted) {
+                
 
-                    const updatedFreelas = {
-                        freelaDone: freelasCopy
-                    }
+                cowboy.freelaToDo.push({ freelaId: freelaId });
+                const updatedCowboy = await cowboy.save()
+                return renderIndex(req, res)
 
-                    const updatedCowboy = await CowboyModel.findByIdAndUpdate(req.params.id, updatedFreelas);
-                    return renderIndex(req, res)
-                }
+/*
+                const uptade = await CowboyModel.updateOne(
+                    { _id: userId },
+                    { $push: { freelaToDo: freelaId } }
+                )
+
+                const updatedFreelas = {
+                    $push: { freelaToDo: freelaId}
+                };
+
+                //const updatedCowboy = await CowboyModel.findByIdAndUpdate(req.params.id, updatedFreelas);
+                return renderIndex(req, res)
+                    
+                cowboy.freelaToDo.push({ freelaId: freelaId });
+          
+                const updatedCowboy = await cowboy.save();
+
+                cowboy.freelaToDo.forEach((item) => {
+                    console.log(item);
+                });
+
+                */
             }
         } catch (error) {
             console.log(error)

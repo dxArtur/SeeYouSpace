@@ -165,7 +165,14 @@ const userController = {
         } catch (error) {
             console.log(error)
         }
-    }
+    },
+
+    signout: async(req, res) => {
+        req.session.destroy();
+      
+        res.clearCookie('access_token');
+        res.redirect('/');
+      }
 }
 
 module.exports = userController;

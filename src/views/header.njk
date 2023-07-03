@@ -12,12 +12,12 @@
           </form>
         </li>
         <nav class="items-menu">
-          <li><a href="/">freelas</a></li>
-          <li><a href="/space/profile">profile</a></li>
+          <li><a href="/space/myfreelas">freelas</a></li>
+          <li><a href="/space/user/{{ req.session.user._id }}">profile</a></li>
           <li><a href="/">seetings</a></li>
         </nav>
         <nav class="welcome">
-          <li><a>hi, {{ user.name }}!</a></li>
+          <li><a href="/space/signout" >hi, {{ user.name }}!</a></li>
       </ul>
     </nav>
   </div>

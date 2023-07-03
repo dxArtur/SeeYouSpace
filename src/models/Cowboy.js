@@ -7,7 +7,7 @@ const { Freela } = require('./Freela');
 
 const cowboySchema = new Schema({
     _userId: {
-        type:Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
     },
@@ -18,7 +18,13 @@ const cowboySchema = new Schema({
     freelaDone: [{ 
         type: Schema.Types.ObjectId,
         ref:'Freela',
-        required: true
+        required: false
+    }],
+
+    freelaToDo:[{
+        type: Schema.Types.ObjectId,
+        ref:'Freela',
+        required: false
     }],
     
     treasureChest: {

@@ -6,11 +6,13 @@
 
 {{ title }}
 
-{% endif %}
-{% if user.type ==='shooter' %}
-<div class="addFreela">
-    <button class="createNewFreela">
-</div>
+
+{% if user %}
+    {% if user.type === 'admin' %}
+    <div class="addFreela">
+        <button class="createNewFreela">
+    </div>
+    {% endif %}
 {% endif %}
 <div class="myfreela-container">
     <div class="freela-container">
