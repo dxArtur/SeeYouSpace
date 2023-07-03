@@ -6,8 +6,9 @@
 
 
 <div class="box-card-login">
-    <form id="formFreela" action="/space/freela/add" method="post">
-    <input type = "hidden" value ="{{userId}}" name="id">
+    <form id="formFreela" action="/space/updateFreela/{{freela._id}}" method="post">
+    <input type = "hidden" value ="{{freela._id}}" name="freelaId">
+    <input type = "hidden" value ="{{userId}}" name="userId">
         <div class="form-group label">
             <label>title</label>
         </div>
@@ -29,7 +30,7 @@
         <input type="hidden" name="author" value="{{ user._id }}">
 
         <div class="col-md-6 form-group element">
-            <button type="submit" class="btn btn-primary">Register freela</button>
+            <button type="submit" class="btn btn-primary">Update freela</button>
         </div>
     </form>
 </div>

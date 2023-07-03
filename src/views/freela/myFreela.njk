@@ -9,9 +9,10 @@
 
 {% if user %}
     {% if user.type === 'shooter' %}
-    <div class="addFreela">
-        <button class="createNewFreela">
-    </div>
+    <form action="/space/freela/add" method="get">
+            <input type = "hidden" value ="{{user._id}}" name="id">
+                <button type="submit" class="btn-complete">add new freela</button>
+        </form>
     {% endif %}
 {% endif %}
 <div class="myfreela-container">

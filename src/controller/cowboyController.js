@@ -151,15 +151,12 @@ const cowboyController = {
     },
 
     doneFreela: async (req, res) =>{
-        console.log(req.body)
         try {
-            console.log('oui')
             let freelaId = req.body.id
             const userId = req.session.user._id;
             const freelaAccepted = await FreelaModel.findById(freelaId)
             const cowboy = await CowboyModel.findOne( {_userId: userId}).exec()
             if (cowboy && freelaAccepted) {
-                console.log('.........')
                 
 
                 const freelaUpdated = await CowboyModel.findOneAndUpdate(

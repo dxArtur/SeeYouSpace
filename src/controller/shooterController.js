@@ -1,6 +1,7 @@
 const {Shooter: ShooterModel} = require('../models/Shooter');
 const { User: UserModel } = require('../models/User');
 const { Freela: FreelaModel, Freela } = require('../models/Freela');
+const { renderIndex } = require('./indexController');
 
 const shooterController = {
     getCreateShooter: async(req, res)=>{
@@ -15,7 +16,7 @@ const shooterController = {
                 accountBalance: req.body.accountBalance
             }
             const shooterCreated = await ShooterModel.create(shooter);
-            res.status(201).send({message: 'shooter created', shooterCreated})
+            return renderIndex(req, res)
         } catch (error) {
           console.log(error);
         }
