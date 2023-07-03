@@ -18,16 +18,18 @@
         {{ freela.description }}
     </p>
     <p>Reward: {{ freela.reward }} treasureChest</p>
-    {% if not freela.visibility and req.session.user and req.session.user._id.toString() == freela.responsable.toString() %}
-        <form action="/space/doneFreela" method="POST">
-        <input type = "hidden" value ="{{freela._id}}" name="id">
-            <button type="submit" class="btn-complete">Done</button>
-        </form>
-    {% else %}
-        <form action="/space/acceptFreela" method="POST">
-        <input type = "hidden" value ="{{freela._id}}" name="id">
-            <button type="submit" class="btn-complete">Accept Freela</button>
-        </form>
+    {% if user.type == "cowboy" %}
+        {% if not freela.visibility and user and freela.responsable and user._id.toString() == freela.responsable.toString() %}
+            <form action="/space/doneFreela" method="POST">
+            <input type = "hidden" value ="{{freela._id}}" name="id">
+                <button type="submit" class="btn-complete">Done</button>
+            </form>
+        {% else %}
+            <form action="/space/acceptFreela" method="POST">
+            <input type = "hidden" value ="{{freela._id}}" name="id">
+                <button type="submit" class="btn-complete">Accept Freela</button>
+            </form>
+        {% endif %}
     {%endif%}
 </div>
 
