@@ -21,11 +21,13 @@ const cowboySchema = new Schema({
         required: false
     }],
 
-    freelaToDo:[{
-        type: Schema.Types.ObjectId,
-        ref:'Freela',
-        required: false
-    }],
+    freelaToDo: [{
+        freelaId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Freela',
+          required: false
+        }
+      }],
     
     treasureChest: {
         type: Number,

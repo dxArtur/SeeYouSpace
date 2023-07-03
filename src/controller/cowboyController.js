@@ -2,6 +2,10 @@ const {Cowboy: CowboyModel, cowboySchema} = require('../models/Cowboy');
 const { renderIndex } = require('./indexController');
 const { Freela: FreelaModel} = require('../models/Freela')
 const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+
+
 
 
 const cowboyController = {
@@ -91,15 +95,22 @@ const cowboyController = {
 
     acceptFreela: async(req, res)=>{
         try {
-            const freelaId = req.body.freelaId
+            let freelaId = req.body.freelaId
             const userId = req.session.user._id;
             const freelaAccepted = await FreelaModel.findById(freelaId)
-            const cowboy = await CowboyModel.findOne({ _userId: userId }).exec()
+            const cowboy = await CowboyModel.findOne( {_userId: userId})
+            console.log(userId)
             if (cowboy && freelaAccepted) {
+                console.log('oiiiii')
                 
 
-                cowboy.freelaToDo.push({ freelaId: freelaId });
-                const updatedCowboy = await cowboy.save()
+                const freelaUpdated = await CowboyModel.findOneAndUpdate(
+                    { _id: userId },
+                    { $push: { freelaToDo: { freelaId: new ObjectId(freelaId) } } },
+                    { new: true })
+
+                console.log(freelaUpdated)
+
                 return renderIndex(req, res)
 
 /*

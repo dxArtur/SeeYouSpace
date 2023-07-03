@@ -43,7 +43,6 @@ const freelaController ={
             const freela = await FreelaModel.findById(req.params.id);
             const users = await UserModel.find()
             //res.status(201).json({message: 'freela found is', freelaSelected});
-            console.log(freela)
             res.render('freela/freela.njk', {freela, users})
         } catch (error) {
             console.log(error);
