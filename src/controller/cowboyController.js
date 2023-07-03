@@ -115,8 +115,8 @@ const cowboyController = {
                 
                 const updatesInFreela = await FreelaModel.findByIdAndUpdate(
                     {_id: freelaId},
-                    {$set: {visibility: false}},
-                    {$set: {responsable: userId}}
+                    { $set: { visibility: false, responsable: userId } },
+                    { new: true }
                 )
 
 
@@ -151,19 +151,27 @@ const cowboyController = {
     },
 
     doneFreela: async (req, res) =>{
+        console.log(req.body)
         try {
             console.log('oui')
-            let freelaId = req.body.freelaId
+            let freelaId = req.body.id
             const userId = req.session.user._id;
             const freelaAccepted = await FreelaModel.findById(freelaId)
-            const cowboy = await CowboyModel.findOne( {_userId: userId})
+            const cowboy = await CowboyModel.findOne( {_userId: userId}).exec()
             if (cowboy && freelaAccepted) {
+                console.log('.........')
                 
 
                 const freelaUpdated = await CowboyModel.findOneAndUpdate(
                     { _userId: userId },
                     { $push: { freelaDone: { freelaId: new ObjectId(freelaId) }}},
                     { new: true })
+
+                const freelaDoned = await CowboyModel.findOneAndUpdate(
+                    { _userId: userId },
+                    { $pull: { freelaToDo: { freelaId: freelaId } } },
+                    { new: true }
+                    )
 
 
             //payToCowboy(req, res)

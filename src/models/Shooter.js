@@ -12,11 +12,13 @@ const shooterSchema = new Schema({
         type: Number,
         required: true
     },
-    freelasToDo:[{
-        type: Schema.Types.ObjectId,
-        ref:'Freelas',
-        required: false
-    }]
+    freelaToDo:[{
+        freelaId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Freela',
+          required: false
+        }
+      }]
 
 });
 
