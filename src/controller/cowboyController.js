@@ -2,6 +2,11 @@ const {Cowboy: CowboyModel, cowboySchema} = require('../models/Cowboy');
 const { renderIndex } = require('./indexController');
 const { Freela: FreelaModel} = require('../models/Freela')
 const { Schema } = require('mongoose');
+const mongoose = require('mongoose');
+const { payToCowboy } = require('./shooterController');
+const ObjectId = mongoose.Types.ObjectId;
+
+
 
 
 const cowboyController = {
@@ -90,16 +95,31 @@ const cowboyController = {
     },
 
     acceptFreela: async(req, res)=>{
+        console.log(req.body)
         try {
-            const freelaId = req.body.freelaId
+            let freelaId = req.body.id
             const userId = req.session.user._id;
             const freelaAccepted = await FreelaModel.findById(freelaId)
-            const cowboy = await CowboyModel.findOne({ _userId: userId }).exec()
+            const cowboy = await CowboyModel.findOne( {_userId: userId}).exec()
+            //console.log(freelaId)
             if (cowboy && freelaAccepted) {
+                console.log('oiiii')
                 
 
-                cowboy.freelaToDo.push({ freelaId: freelaId });
-                const updatedCowboy = await cowboy.save()
+                const freelaUpdated = await CowboyModel.findOneAndUpdate(
+                    { _userId: userId },
+                    { $push: { freelaToDo: { freelaId: new ObjectId(freelaId) }}},
+                    { new: true }
+                )
+                
+                
+                const updatesInFreela = await FreelaModel.findByIdAndUpdate(
+                    {_id: freelaId},
+                    { $set: { visibility: false, responsable: userId } },
+                    { new: true }
+                )
+
+
                 return renderIndex(req, res)
 
 /*
@@ -124,6 +144,38 @@ const cowboyController = {
                 });
 
                 */
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
+    doneFreela: async (req, res) =>{
+        console.log(req.body)
+        try {
+            console.log('oui')
+            let freelaId = req.body.id
+            const userId = req.session.user._id;
+            const freelaAccepted = await FreelaModel.findById(freelaId)
+            const cowboy = await CowboyModel.findOne( {_userId: userId}).exec()
+            if (cowboy && freelaAccepted) {
+                console.log('.........')
+                
+
+                const freelaUpdated = await CowboyModel.findOneAndUpdate(
+                    { _userId: userId },
+                    { $push: { freelaDone: { freelaId: new ObjectId(freelaId) }}},
+                    { new: true })
+
+                const freelaDoned = await CowboyModel.findOneAndUpdate(
+                    { _userId: userId },
+                    { $pull: { freelaToDo: { freelaId: freelaId } } },
+                    { new: true }
+                    )
+
+
+            //payToCowboy(req, res)
+            return renderIndex(req, res)
             }
         } catch (error) {
             console.log(error)

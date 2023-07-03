@@ -15,17 +15,21 @@ const cowboySchema = new Schema({
         type: String,
         required: true
     },
-    freelaDone: [{ 
-        type: Schema.Types.ObjectId,
-        ref:'Freela',
-        required: false
-    }],
+    freelaDone: [{
+        freelaId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Freela',
+          required: false
+        }
+      }],
 
-    freelaToDo:[{
-        type: Schema.Types.ObjectId,
-        ref:'Freela',
-        required: false
-    }],
+    freelaToDo: [{
+        freelaId: {
+          type: Schema.Types.ObjectId,
+          ref: 'Freela',
+          required: false
+        }
+      }],
     
     treasureChest: {
         type: Number,

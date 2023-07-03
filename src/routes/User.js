@@ -14,7 +14,9 @@ router
     .route('/user/index')
     .get((req, res)=>userController.index(req, res));
 
-router.route('/user/:id').get((req, res)=>userController.getUser(req, res))
+router
+    .route('/user/:id')
+    .get((req, res)=>userController.getUser(req, res))
 
 router
     .route('/userAll')

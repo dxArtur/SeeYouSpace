@@ -27,12 +27,9 @@ router
     .get((req, res)=>cowboyController.getCowboyByUserId(req, res));
 
 router
-    .route('/cowboy/donefreela/:freelaId')
-    .put((req, res)=>cowboyController.done(req, res));
+    .route('/doneFreela')
+    .post((req, res)=>cowboyController.doneFreela(req, res));
 
-router
-    .route('/cowboy/doingFreela/:freelaId')
-    .put((req, res)=>cowboyController.doingFreela(req, res));
     
     /*
     .pega um freela,

@@ -8,7 +8,7 @@
 
 
 {% if user %}
-    {% if user.type === 'admin' %}
+    {% if user.type === 'shooter' %}
     <div class="addFreela">
         <button class="createNewFreela">
     </div>
@@ -17,7 +17,6 @@
 <div class="myfreela-container">
     <div class="freela-container">
         {% for freela in freelas %}
-            {% if freela.status %}
                 <a href="/space/freela/{{ freela._id }}" class="freela-link" method="GET">
                     <div class="freela-card">
                         <h3 class="title-freela">{{ freela.title }}</h3>
@@ -34,7 +33,7 @@
                         </p>
                     </div>
                 </a>
-            {% endif %}    
+              
         {% endfor %}
     </div>
 </div>

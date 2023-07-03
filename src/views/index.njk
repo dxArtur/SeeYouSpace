@@ -8,7 +8,7 @@
 <div class="feed-container">
     <div class="freela-container">
         {% for freela in freelas %}
-            {% if freela.status %}
+            {% if freela.visibility %}
                 <a href="/space/freela/{{ freela._id }}" class="freela-link" method="GET">
                     <div class="freela-card">
                         <h3 class="title-freela">{{ freela.title }}</h3>

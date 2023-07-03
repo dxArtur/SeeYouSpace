@@ -73,6 +73,9 @@ const shooterController = {
             const freela = {};
             const cowboy ={};
 
+            const userId = req.session.user._id;
+            
+
             if(await UserModel.findById(cowboy.id) || await ShooterModel.findById(freela.id)){
                 if(freela.reward<= accountBalance){
                     accountBalance -=freela.reward;
