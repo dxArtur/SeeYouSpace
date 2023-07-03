@@ -1,0 +1,46 @@
+{% extends "layout.njk" %}
+
+{% include "header.njk" %}
+
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="/css/layout/profile.css">
+</head>
+
+{{ title }}
+<div class="card-box">
+    <h1 class="sub-title">Profile</h1>
+    
+    <h2 class="sub-title">User Information</h2>
+    <p class="info">{{ user.name }}</p>
+    <p class="info">email: {{ user.email }}</p>
+    
+    {% if user.type === 'cowboy' %}
+        <h2 class="sub-title">{{user.type}} Information</h2>
+        <p class="info">Nick: {{ cowboy.nick }}</p>
+        <p class="info">Treasure Chest: {{ cowboy.treasureChest }}</p>
+        <p class= "info">Freela done: {{cowboy.freelaDone}}
+            {% for freela in freelas %}
+                {%if user._id.toString() == freela.author.toString()%}
+                    <a href="/space/freela/{{ freela._id }}" class="freela-link"><br>
+                    {{ freela.title}}
+                    </a>
+                {%endif%}
+            {%endfor%}
+        </p>
+    {% elseif user.type === 'shooter' %}
+        <h2 class="sub-title">{{user.type}} Information</h2>
+        <p class="info">Account Balance: {{ shooter.accountBalance }}</p>
+        <p class= "info">Freela to do:<br>
+            {% for freela in freelas %}
+                {%if user._id.toString() == freela.author.toString()%}
+                    <a href="/space/freela/{{ freela._id }}" class="freela-link"><br>
+                    {{ freela.title}}
+                    </a>
+                {%endif%}
+            {%endfor%}
+        </p>
+    {% endif %}
+</div>
+{% endblock %}

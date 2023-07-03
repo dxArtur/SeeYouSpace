@@ -1,0 +1,142 @@
+@font-face {
+    font-family: 'inter';
+    src: url('../fonts/inter/Inter-Regular.ttf') format('truetype');
+    
+}
+
+@font-face {
+    font-family: 'inter-thin';
+    src: url('../fonts/inter/Inter-Thin.ttf') format('truetype');
+    
+}
+/*setando font*/
+html {
+    font-family: 'inter', Arial, Helvetica, sans-serif;
+        
+}
+
+body {
+    height: 100vh; /* Definir altura total da página */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('/imgs/bg_space01.jpg');
+    background-size: cover;
+}
+
+
+
+
+
+.form-group {
+    margin-bottom: 3%; /* Espaçamento entre as linhas */
+    color: white;
+}
+
+.form-group label{
+    font-family: 'inter-thin', sans-serif;
+    
+    font-size: xx-large;
+    
+}
+
+.box-card-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1%;
+    justify-content: center;
+  }
+  
+  .box-card-login .row {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .box-card-login .form-group {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+.box-card-login form .form-group.label {
+    display: flex;
+    justify-content: center;
+  }
+*/
+
+
+/*posicionando os elementos em linhas um abaixo do outro na div*/
+
+
+
+  
+input,  textarea {
+    display: inline-block;
+}
+
+/*centralizando elementos da div*/
+.box-card-login form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+  }
+
+
+h1{
+    color: var(--color-green);
+    background-position: center;
+}
+
+
+.box-card-login{
+    width: 104%;
+    height: 50%;
+    border-radius: 4px;
+    background-color: rgba(99, 97, 97, 0.4);
+    box-shadow: 1px 1px 5px rgba(21, 184, 21, 0.8);
+    margin-bottom: 0;
+}
+
+.form-group label {
+    font-size: 15pt;
+}
+
+
+.box-card-login form#formUser {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+
+
+
+
+:root{
+    --color-gray-background: #474747;
+    --color-white: white;
+    --color-background: #292929;
+    --color-green: rgb(21, 184, 21);
+}
+
+

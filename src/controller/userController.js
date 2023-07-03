@@ -4,7 +4,13 @@ const shooter = require('../routes/Shooter');
 //shooter.route('/cowboy').post
 //const {createCowboy}=require('../controller/cowboyController');
 const {createShooter}=require('../controller/shooterController');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const nunjucks = require('nunjucks');
+const cowboyController = require('./cowboyController');
+const shooterController = require('./shooterController')
+const feedController = require('./indexController');
+const { Freela: FreelaModel } = require('../models/Freela');
 
 
 const userExist = async(req, res)=>{
@@ -21,24 +27,33 @@ const userExist = async(req, res)=>{
 
 
 const userController = {
+    getCreateUser: async(req, res)=>{
+        res.render('user/registerUser.njk');
+    },
 
     createUser: async(req, res)=>{
         try {
             const user = {
                 email: req.body.email,
                 name: req.body.name,
-                password: await bcrypt.hash(req.body.password, process.env.SALT),
+                password: await bcrypt.hash(req.body.password, Number(process.env.SALT)),
                 type: req.body.type
             }
-            console.log(req.body);
-
             const emailUsed = await UserModel.findOne({email: user.email});
             if(!emailUsed){
                 const userCreated = await UserModel.create(user);
                 //req.userId=userCreated._id;
                 //res.status(201).json({message: 'user created', userCreated});
+                res.locals.userId = userCreated._id
+                if(req.body.type === 'cowboy') {
+                    return cowboyController.getCreateCowboy(req, res)
+                    //return res.redirect(307, 'cowboy/registerCowboy')
+                }else {
+                    return shooterController.getCreateShooter(req, res)
+                    //return res.redirect(307, 'shooter/registerShooter')
+                }
                 
-                res.redirect(307, `/space/${userCreated.type}/add?_id=${userCreated._id}`);
+                //res.redirect(307, `/space/${userCreated.type}/add?_id=${userCreated._id}`);
                 
                 /*
                 (user.type === 'cowboy' 
@@ -52,13 +67,8 @@ const userController = {
         }
     },
 
-    loginUser: async(req, res)=>{
-        try {
-            
-        } catch (error) {
-            console.log(error);
-        }
-        res.send('route login');
+    renderLogin: async(req, res)=>{
+        res.render('user/login.njk');
     },
 
     deleteUser: async(req, res)=>{
@@ -79,7 +89,7 @@ const userController = {
                 const user = {
                     email: req.body.email,
                     name: req.body.name,
-                    password: await bcrypt.hash(req.body.password, process.env.SALT),
+                    password: await bcrypt.hash(req.body.password, Number(process.env.SALT)),
                     type: req.body.type
                 }
                 const userUpdated = await UserModel.findByIdAndUpdate(req.params.id, user);
@@ -93,10 +103,14 @@ const userController = {
 
     getUser: async(req, res)=>{
         try {
-            if(await UserModel.find(req.params.id)){
-                const userSelected = await UserModel.findById(req.params.id);
-                res.status(201).json({message: 'user selected', userSelected});
-            }
+            const userSelected = await UserModel.findById(req.params.id)
+            console.log(userSelected);
+
+            const freelas = await FreelaModel.find()
+
+
+            res.render('user/seeUser.njk', {user: userSelected, freelas})
+            //res.status(201).json({message: 'user selected', userSelected});
         } catch (error) {
             console.log(error);
         }
@@ -109,7 +123,56 @@ const userController = {
         } catch (error) {
             console.log(error);
         }
-    }
+    },
+
+    cleanDB: async(req, res)=>{
+        try {
+            const users = await UserModel.find();
+            for (let i = 0; i < users.length; i++) {
+              const user = users[i];
+              console.log('Deleting user:', user);
+              await UserModel.deleteOne({ _id: user._id });
+            }
+            res.status(201).json({ message: 'All users deleted' })
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
+    loginUser: async(req, res)=>{
+        try {
+            const {email, password } = req.body;
+            const user = await UserModel.findOne({email});
+            const match = await bcrypt.compare(password, user.password);
+            //const usr = await UserModel.readByEmail(email);
+            if(! user || ! match){
+                console.log('bad auth');
+            }
+
+            const token = await jwt.sign(
+                {userId : user._id,
+                email: user.email
+                },
+                process.env.SECRET,
+                {expiresIn: "1h"});
+
+            const tokenBearer = `Bearer ${token}`;
+
+            req.session.user = user;
+            res.cookie('access_token', tokenBearer, { maxAge: 3600000 }); // 1h
+            res.set('Authorization', tokenBearer);
+            return feedController.renderIndex(req, res);
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
+    signout: async(req, res) => {
+        req.session.destroy();
+      
+        res.clearCookie('access_token');
+        res.redirect('/');
+      }
 }
 
 module.exports = userController;

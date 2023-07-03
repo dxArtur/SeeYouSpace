@@ -4,15 +4,27 @@ const router = require('express').Router();
 
 router
     .route('/cowboy/add')
+    .get((req, res)=>cowboyController.getCreateCowboy(req, res));
+
+router
+    .route('/cowboy/add')
     .post((req, res)=>cowboyController.createCowboy(req, res));
 
 router
-    .route('/cowboy')
-    .get((req, res)=>cowboyController.get(req, res));
+    .route('/cowboy/:id')
+    .get((req, res)=>cowboyController.getCowboy(req, res));
 
 router
-    .route('/cowboy/all')
+    .route('/acceptFreela')
+    .post((req, res)=>cowboyController.acceptFreela(req, res))
+
+router
+    .route('/cowboyAll')
     .get((req, res)=>cowboyController.getAllCowboy(req, res));
+
+router
+    .route('/cowboybyid')
+    .get((req, res)=>cowboyController.getCowboyByUserId(req, res));
 
 router
     .route('/cowboy/donefreela/:freelaId')

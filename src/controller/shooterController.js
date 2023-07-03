@@ -3,14 +3,16 @@ const { User: UserModel } = require('../models/User');
 const { Freela: FreelaModel, Freela } = require('../models/Freela');
 
 const shooterController = {
-    createShooter : async(req, res, id)=>{
+    getCreateShooter: async(req, res)=>{
+        res.render('shooter/registerShooter.njk');
+    },
+
+    createShooter : async(req, res)=>{
         console.log('shtr');
-        console.log(req.params.id);
         try {
             const shooter = {
-                userId: req.params.id,
-                accountBalance: req.body.accountBalance,
-                freelasUnfinished: req.body.freelasUnfinished
+                _userId: req.body.id,
+                accountBalance: req.body.accountBalance
             }
             const shooterCreated = await ShooterModel.create(shooter);
             res.status(201).send({message: 'shooter created', shooterCreated})
@@ -24,7 +26,7 @@ const shooterController = {
             if(await ShooterModel.findById(req.params.id)){
                 const shooter = {
                     accountBalance: req.body.accountBalance,
-                    freelasUnfinished: req.body.freelasUnfinished
+                    freelasToDo: req.body.freelasToDo
                 }
                 const shooterUpdated = await ShooterModel.findByIdAndUpdate(req.params.id, shooter);
                 res.status(201).json({message: 'shooter updated', shooterUpdated});
@@ -45,13 +47,11 @@ const shooterController = {
         }
     },
 
-
-    getShooterByName: async(req, res)=>{},
-
     getShooter: async(req, res)=>{
         try {
             const shooter = await ShooterModel.findById(req.params.id);
-            if(shooter){
+            if (shooter) {
+                console.log(shooter)
                 res.status(201).json({message: 'this is shooter', shooter})
             }
         } catch (error) {
@@ -62,7 +62,7 @@ const shooterController = {
     getAllShooter: async(req, res)=>{
         try {
             const shooters = await ShooterModel.find();
-            res.status(200).json({shooters});
+            res.status(201).json({message: 'all shooters created', shooters})
         } catch (error) {
             console.log(error);
         }

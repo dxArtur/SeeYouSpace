@@ -1,0 +1,22 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+{{ title }}
+
+<div class="box-card-login">
+    <form id="formShooter" action="/space/shooter/add" method="post">
+    <input type = "hidden" value ="{{userId}}" name="id">
+        <div class="form-group label">
+            <label>Account Balance</label>
+        </div>
+        <div class="col-md-6 form-group element">
+            <input type="number" placeholder="account balance" class="form-control" id="shooter-account-balance" name="accountBalance" required>
+        </div>
+        <div class="col-md-6 form-group element">
+            <button type="submit" class="btn btn-primary">Register Shooter</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

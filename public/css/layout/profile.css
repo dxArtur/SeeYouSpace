@@ -1,0 +1,12 @@
+.card-box{
+    background-color: var(--color-background);
+    color: var(--color-white-background);
+    font-family: 'inter-thin', Arial, Helvetica, sans-serif;
+    border-radius: 10px;
+    padding: 3%;
+    width: 230px;
+}
+
+.freela-link{
+    color: var(--color-green);
+}

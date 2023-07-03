@@ -1,0 +1,18 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+{{ title }}
+
+<div class="profile-details">
+    <h3>{{ user.name }}</h3>
+    <p>Email: {{ user.email }}</p>
+    <h4>Freelas to-DO:</h4>
+    <ul>
+        {% for freela in user.freelaDone %}
+            <li>{{ freela.title }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}

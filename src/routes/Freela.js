@@ -2,24 +2,33 @@ const router = require('express').Router();
 const freelaController = require('../controller/freelaController');
 
 router
-    .route('/freela')
-    .post((req, res)=>freelaController.create(req, res));
+    .route('/freela/add')
+    .get((req, res)=>freelaController.getCreateFreela(req, res))
 
 router
-    .route('/freela')
-    .get((req, res)=>freelaController.view(req, res));
+    .route('/myfreelas')
+    .get((req, res)=>freelaController.renderMyFreela(req, res));
 
 router
     .route('/freela/add')
-    .get((req, res)=>freelaController.view(req, res));
+    .post((req, res)=>freelaController.createFreela(req, res));
 
 router
-    .route('/freela')
-    .delete((req, res)=>freelaController.delete(req, res));
+    .route('/freelaAll')
+    .get((req, res)=>freelaController.getAllFreelas(req, res));
 
 router
-    .route('/freela')
+    .route('/freela/:id')
+    .get((req, res)=>freelaController.getFreela(req, res));
+
+router
+    .route('/freela/:id')
+    .delete((req, res)=>freelaController.deleteFreela(req, res));
+
+router
+    .route('/freela/:id')
     .put((req, res)=>freelaController.update(req, res));
+
 
 /*routes ideias
     search, view

@@ -1,0 +1,26 @@
+{% extends "layout.njk" %}
+{% block header %}
+<header>
+  <div class="menu-container">
+    <nav class="menu-top">
+      <ul>
+        <li><a href="/">See You Space</a></li>
+        <li class="form">
+          <form action="/search" method="GET">
+            <input type="text" name="query" placeholder="Search...">
+            <button type="submit">Search</button>
+          </form>
+        </li>
+        <nav class="items-menu">
+          <li><a href="/space/myfreelas">freelas</a></li>
+          <li><a href="/space/user/{{ req.session.user._id }}">profile</a></li>
+          <li><a href="/">seetings</a></li>
+        </nav>
+        <nav class="welcome">
+          <li><a href="/space/signout" >hi, {{ user.name }}!</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+{% endblock %}

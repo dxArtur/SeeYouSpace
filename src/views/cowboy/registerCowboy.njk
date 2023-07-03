@@ -1,0 +1,28 @@
+{% extends "layout.njk" %}
+
+{% block content %}
+
+{{ title }}
+
+<div class="box-card-login">
+    <form id="formCowboy" action="/space/cowboy/add" method="post">
+    <input type = "hidden" value ="{{userId}}" name="id">
+        <div class="form-group label">
+            <label>Nick</label>
+        </div>
+        <div class="col-md-6 form-group element">
+            <input type="text" placeholder="nick" class="form-control" id="cowboy-nick" name="nick" required>
+        </div>
+        <div class="form-group label">
+            <label>Tesouro</label>
+        </div>
+        <div class="col-md-6 form-group element">
+            <input type="number" placeholder="treasure chest" class="form-control" id="cowboy-treasure-chest" name="treasureChest" required>
+        </div>
+        <div class="col-md-6 form-group element">
+            <button type="submit" class="btn btn-primary">Register Cowboy</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

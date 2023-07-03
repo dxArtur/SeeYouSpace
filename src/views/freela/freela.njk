@@ -1,0 +1,31 @@
+{% extends "layout.njk" %}
+{% include "header.njk" %}
+
+{% block content %}
+
+<div class="freela-view-container">
+    <input type = "hidden" value ="{{_id}}" name="id">
+    <h3>{{ freela.title }}</h3>
+    <p class="author-freela">Author:
+        {% for user in users %}
+            {%if user._id.toString() == freela.author.toString()%}
+                {% set author = user.name%}
+                <a href="/space/user/{{ user._id }}" class="author-link">{{ author}}</a>
+            {%endif%}
+        {%endfor%}
+    </p>
+    <p>Description: 
+        {{ freela.description }}
+    </p>
+    <p>Reward: {{ freela.reward }} treasureChest</p>
+    {% if freela.status %}
+        <form action="/space/acceptFreela" method="post">
+            <input type="hidden" name="freelaId" value="{{ freela._id }}">
+            <input type="submit" value="Accept Freela">
+        </form>
+    {% else %}
+        <button class="btn-complete" onclick="completeFreela('{{ freela._id }}')">Mark as Completed</button>
+    {% endif %}
+</div>
+
+{% endblock %}
