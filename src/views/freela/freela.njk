@@ -20,7 +20,7 @@
     <p>Reward: {{ freela.reward }} treasureChest</p>
     {% if user.type == "cowboy" %}
         {% if not freela.visibility and user and freela.responsable and user._id.toString() == freela.responsable.toString() %}
-            <form action="/space/doneFreela" method="POST">
+             <form action="/space/doneFreela" method="POST">
             <input type = "hidden" value ="{{freela._id}}" name="id">
                 <button type="submit" class="btn-complete">Done</button>
             </form>
@@ -30,6 +30,16 @@
                 <button type="submit" class="btn-complete">Accept Freela</button>
             </form>
         {% endif %}
+    {% else  %}
+        <form action="/space/updateFreela/{{ freela._id }}" method="get">
+            <input type = "hidden" value ="{{freela._id}}" name="id">
+                <button type="submit" class="btn-complete">edit</button>
+        </form>
+
+         <form action="/space/deleteFreela/{{ freela._id }}" method="POST">
+            <input type = "hidden" value ="{{freela._id}}">
+                <button type="submit" class="btn-complete">delete</button>
+        </form>
     {%endif%}
 </div>
 

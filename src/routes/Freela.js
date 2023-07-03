@@ -22,12 +22,16 @@ router
     .get((req, res)=>freelaController.getFreela(req, res));
 
 router
-    .route('/freela/:id')
-    .delete((req, res)=>freelaController.deleteFreela(req, res));
+    .route('/deleteFreela/:id')
+    .post((req, res)=>freelaController.deleteFreela(req, res));
 
 router
-    .route('/freela/:id')
-    .put((req, res)=>freelaController.update(req, res));
+    .route('/updateFreela/:id')
+    .get((req, res)=>freelaController.renderFormUpdate(req, res));    
+
+router
+    .route('/updateFreela/:id')
+    .post((req, res)=>freelaController.updateFreela(req, res));
 
 
 /*routes ideias

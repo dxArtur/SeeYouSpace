@@ -2,10 +2,17 @@ const {Freela: FreelaModel} = require('../models/Freela');
 const {User: UserModel } = require('../models/User');
 const {Cowboy: CowboyModel} = require('../models/Cowboy');
 const {Shooter: ShooterModel} = require('../models/Shooter');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 const freelaController ={
     getCreateFreela: async(req, res)=>{
-        res.render('freela/registerFreela.njk');
+        res.render('freela/createFreela.njk');
+    },
+
+    renderFormUpdate: async(req, res)=>{
+        console.log('oi')
+        res.render('freela/updateFreela.njk');
     },
 
     createFreela: async(req, res)=>{
@@ -14,8 +21,7 @@ const freelaController ={
                 author: req.body.author,
                 title: req.body.title,
                 description: req.body.description,
-                reward: req.body.reward,
-                status: req.body.status
+                reward: req.body.reward
             };
             const freelaCreated = await FreelaModel.create(freela);
 
@@ -32,7 +38,7 @@ const freelaController ={
                 { new: true }
             )
 
-            res.status(201).json({message: 'freela created with sucessfull', freelaCreated});
+            res.redirect('/space/feed')
         } catch (error) {
             console.log(error);
         }
@@ -70,6 +76,7 @@ const freelaController ={
 
                 res.render('freela/myFreela.njk', {freelas: formattedFreelas, users})
             } else {
+                console.log('-------')
                 const shooter = await ShooterModel.findOne({ _userId: userId });
                 const freelas = shooter.freelaToDo
                 const users = await UserModel.find()
@@ -123,10 +130,11 @@ const freelaController ={
 
     deleteFreela: async(req, res)=>{
         try {
+            console.log('veio')
             if(await FreelaModel.findById(req.params.id)){
                 const freelaDeleted = await FreelaModel.findByIdAndDelete(req.params.id);
 
-                res.status(201).json({message: 'Freela deleted', freelaDeleted})
+                res.redirect('/space/feed')
            }
         } catch (error) {
             console.log(error);
@@ -140,7 +148,6 @@ const freelaController ={
                     title: req.body.title,
                     description: req.body.description,
                     reward: req.body.reward,
-                    status: req.body.status
                 }
                 const freelaUpdated = await FreelaModel.findByIdAndUpdate(req.params.id, freela);
                 res.status(201).json({message: 'freela updated', freelaUpdated});
