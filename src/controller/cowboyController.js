@@ -3,6 +3,7 @@ const { renderIndex } = require('./indexController');
 const { Freela: FreelaModel} = require('../models/Freela')
 const { Schema } = require('mongoose');
 const mongoose = require('mongoose');
+const { payToCowboy } = require('./shooterController');
 const ObjectId = mongoose.Types.ObjectId;
 
 
@@ -99,17 +100,15 @@ const cowboyController = {
             const userId = req.session.user._id;
             const freelaAccepted = await FreelaModel.findById(freelaId)
             const cowboy = await CowboyModel.findOne( {_userId: userId})
-            console.log(userId)
             if (cowboy && freelaAccepted) {
-                console.log('oiiiii')
                 
 
                 const freelaUpdated = await CowboyModel.findOneAndUpdate(
-                    { _id: userId },
-                    { $push: { freelaToDo: { freelaId: new ObjectId(freelaId) } } },
-                    { new: true })
+                    { _userId: userId },
+                    { $push: { freelaToDo: { freelaId: new ObjectId(freelaId) }}},
+                    { new: true },
+                    { $set: {visibility: false }})
 
-                console.log(freelaUpdated)
 
                 return renderIndex(req, res)
 
@@ -136,6 +135,17 @@ const cowboyController = {
 
                 */
             }
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
+    doneFreela: async (req, res) =>{
+        try {
+
+            
+            payToCowboy(req, res)
+            return renderIndex(req, res)
         } catch (error) {
             console.log(error)
         }

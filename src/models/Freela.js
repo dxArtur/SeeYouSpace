@@ -20,11 +20,7 @@ const freelaSchema = new Schema({
         type: String,
         required: true
     },
-    status: {
-        type: Boolean,
-        required: true
-    },
-    responasble: {
+    responsable: {
         type: Schema.Types.ObjectId,
         ref:'Shooter',
         required: false
