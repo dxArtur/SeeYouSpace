@@ -27,8 +27,8 @@ router
     .get((req, res)=>cowboyController.getCowboyByUserId(req, res));
 
 router
-    .route('/cowboy/donefreela/')
-    .put((req, res)=>cowboyController.doneFreela(req, res));
+    .route('/doneFreela')
+    .post((req, res)=>cowboyController.doneFreela(req, res));
 
     
     /*
