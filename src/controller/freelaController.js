@@ -26,17 +26,36 @@ const freelaController ={
         res.render('freela/freela.njk', freelaSelected)
     },
     renderMyFreela: async(req, res) =>{
-        let freelas
+        //let freelas
         try {
             const userId = req.session.user._id;
-            const cowboy = await CowboyModel.findOne({ _userId: userId }).exec()
-            console.log(cowboy.freelaToDo)
-            freelas = cowboy.freelaToDo
+            //freelas = await CowboyModel.findOne( {_userId: userId}).select('freelaToDo')
+            const cowboy = await CowboyModel.findOne({ _userId: userId });
+            const freelas = cowboy.freelaToDo
+            const users = await UserModel.find()
 
+            const freelaIds = cowboy.freelaToDo.map(freela => freela.freelaId);
+            console.log(freelaIds)
+            const freelaData = await FreelaModel.find({ _id: { $in: freelaIds } })
+            console.log(freelaData)
+
+            const formattedFreelas = freelaData.map(freela => ({
+                _id: freela._id,
+                title: freela.title,
+                reward: freela.reward,
+                author: freela.author,
+                responsable: freela.responsable,
+                description: freela.description
+                
+              }))
+
+            console.log(formattedFreelas)
+
+            res.render('freela/myFreela.njk', {freelas: formattedFreelas, users})
+            
         } catch (error) {
             
         }
-        res.render('freela/myFreela.njk', freelas)
     },
     getFreela: async(req, res)=>{
         try {

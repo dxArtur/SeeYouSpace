@@ -21,7 +21,9 @@ router
     .route('/shooter/:id')
     .delete((req, res)=>shooterController.deleteShooter(req, res));
 
-router.route('/shooter/:id')
+router
+    .route('/shooter/:id')
     .put((req, res)=> shooterController.updateShooter(req, res));
+
 
 module.exports= router;

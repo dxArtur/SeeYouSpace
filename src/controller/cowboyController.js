@@ -142,10 +142,22 @@ const cowboyController = {
 
     doneFreela: async (req, res) =>{
         try {
+            let freelaId = req.body.freelaId
+            const userId = req.session.user._id;
+            const freelaAccepted = await FreelaModel.findById(freelaId)
+            const cowboy = await CowboyModel.findOne( {_userId: userId})
+            if (cowboy && freelaAccepted) {
+                
 
-            
+                const freelaUpdated = await CowboyModel.findOneAndUpdate(
+                    { _userId: userId },
+                    { $push: { freelaDone: { freelaId: new ObjectId(freelaId) }}},
+                    { new: true })
+
+
             payToCowboy(req, res)
             return renderIndex(req, res)
+            }
         } catch (error) {
             console.log(error)
         }
