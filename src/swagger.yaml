@@ -1,0 +1,455 @@
+openapi: 3.0.0
+info:
+  title: Documentação da API
+  description: Documentação das rotas da API completa
+  version: 1.0.0
+paths:
+  /api/cowboy/add:
+    get:
+      summary: Renderiza a página de registro de cowboy
+      responses:
+        '200':
+          description: Página renderizada com sucesso
+        '500':
+          description: Erro interno do servidor
+    post:
+      summary: Cria um novo cowboy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: ID do usuário
+                nick:
+                  type: string
+                  description: Apelido do cowboy
+                treasureChest:
+                  type: string
+                  description: Baú do tesouro do cowboy
+              required:
+                - id
+                - nick
+                - treasureChest
+      responses:
+        '200':
+          description: Cowboy criado com sucesso
+        '400':
+          description: Requisição inválida
+        '500':
+          description: Erro interno do servidor
+  '/api/cowboy/{id}':
+    get:
+      summary: Obtém um cowboy pelo ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+            description: ID do cowboy
+      responses:
+        '200':
+          description: Cowboy encontrado
+        '400':
+          description: Requisição inválida
+        '404':
+          description: Cowboy não encontrado
+        '500':
+          description: Erro interno do servidor
+  /api/acceptFreela:
+    post:
+      summary: Aceita um freela para o cowboy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                freelaId:
+                  type: string
+                  description: ID do freela
+              required:
+                - freelaId
+      responses:
+        '200':
+          description: Freela aceito com sucesso
+        '400':
+          description: Requisição inválida
+        '404':
+          description: Freela ou cowboy não encontrado
+        '500':
+          description: Erro interno do servidor
+  /api/cowboyAll:
+    get:
+      summary: Obtém todos os cowboys
+      responses:
+        '200':
+          description: Cowboys encontrados
+        '500':
+          description: Erro interno do servidor
+  /api/cowboybyid:
+    get:
+      summary: Obtém um cowboy pelo ID do usuário
+      parameters:
+        - in: query
+          name: userId
+          required: true
+          schema:
+            type: string
+            format: uuid
+            description: ID do usuário
+      responses:
+        '200':
+          description: Cowboy encontrado
+        '400':
+          description: Requisição inválida
+        '404':
+          description: Cowboy não encontrado
+        '500':
+          description: Erro interno do servidor
+  '/api/cowboy/donefreela/{freelaId}':
+    put:
+      summary: Indica que o cowboy concluiu um freela
+      parameters:
+        - in: path
+          name: freelaId
+          required: true
+          schema:
+            type: string
+            format: uuid
+            description: ID do freela
+      responses:
+        '200':
+          description: Cowboy atualizado com sucesso
+        '400':
+          description: Requisição inválida
+        '404':
+          description: Cowboy não encontrado
+        '500':
+          description: Erro interno do servidor
+  '/api/cowboy/doingFreela/{freelaId}':
+    put:
+      summary: Indica que o cowboy está realizando um freela
+      parameters:
+        - in: path
+          name: freelaId
+          required: true
+          schema:
+            type: string
+            format: uuid
+            description: ID do freela
+      responses:
+        '200':
+          description: Cowboy atualizado com sucesso
+        '400':
+          description: Requisição inválida
+        '404':
+          description: Cowboy não encontrado
+        '500':
+          description: Erro interno do servidor
+  /freela/add:
+    get:
+      summary: Renderiza o formulário de registro de freela
+      responses:
+        '200': null
+        description: Sucesso
+    post:
+      summary: Cria um novo freela
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              author:
+                type: string
+              title:
+                type: string
+              description:
+                type: string
+              reward:
+                type: number
+              status:
+                type: string
+      responses:
+        '201':
+          description: Freela criado com sucesso
+        '400':
+          description: Requisição inválida
+  /myfreelas:
+    get:
+      summary: Renderiza a página com os freelas do usuário logado
+      responses:
+        '200':
+          description: Sucesso
+  /freelaAll:
+    get:
+      summary: Obtém todos os freelas
+      responses:
+        '200':
+          description: Sucesso
+  '/freela/{id}':
+    get:
+      summary: Obtém um freela específico pelo ID
+      parameters:
+        - name: id
+          in: path
+          description: ID do freela
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Sucesso
+        '404':
+          description: Freela não encontrado
+    delete:
+      summary: Exclui um freela específico pelo ID
+      parameters:
+        - name: id
+          in: path
+          description: ID do freela
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Freela excluído com sucesso
+        '404':
+          description: Freela não encontrado
+    put:
+      summary: Atualiza um freela específico pelo ID
+      parameters:
+        - name: id
+          in: path
+          description: ID do freela
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              author:
+                type: string
+              title:
+                type: string
+              description:
+                type: string
+              reward:
+                type: number
+              status:
+                type: string
+      responses:
+        '200':
+          description: Freela atualizado com sucesso
+        '404':
+          description: Freela não encontrado
+  /feed:
+    get:
+      summary: Obter a página de índice com os freelas e usuários
+      description: >-
+        Retorna a página de índice com os freelas e usuários. Requer
+        autenticação.
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            text/html:
+              schema:
+                type: string
+        '401':
+          description: Não autorizado
+  /profile:
+    get:
+      summary: Obter a página de perfil do usuário
+      description: Retorna a página de perfil do usuário autenticado. Requer autenticação.
+      responses:
+        '200':
+          description: Sucesso
+          content:
+            text/html:
+              schema:
+                type: string
+        '401':
+          description: Não autorizado
+  /shooter/add:
+    get:
+      summary: Renderiza a página de registro de um novo Shooter
+      responses:
+        '200':
+          description: OK
+    post:
+      summary: Cria um novo Shooter
+      responses:
+        '201':
+          description: Shooter criado com sucesso
+  '/shooter/{id}':
+    get:
+      summary: Obtém um Shooter específico
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: Exclui um Shooter específico
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Shooter excluído com sucesso
+    put:
+      summary: Atualiza um Shooter específico
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Shooter atualizado com sucesso
+  /shooterAll:
+    get:
+      summary: Obtém todos os Shooters
+      responses:
+        '200':
+          description: OK
+  /user/add:
+    get:
+      summary: Renderiza a página de registro de usuário
+      responses:
+        '200':
+          description: Sucesso
+    post:
+      summary: Cria um novo usuário
+      parameters:
+        - name: body
+          in: body
+          description: Dados do usuário a ser criado
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              name:
+                type: string
+              password:
+                type: string
+              type:
+                type: string
+      responses:
+        '200':
+          description: Sucesso
+  /user/index:
+    get:
+      summary: Obtém todos os usuários cadastrados
+      responses:
+        '200':
+          description: Sucesso
+  '/user/{id}':
+    get:
+      summary: Obtém os dados de um usuário específico
+      parameters:
+        - name: id
+          in: path
+          description: ID do usuário a ser obtido
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Sucesso
+    delete:
+      summary: Exclui um usuário específico
+      parameters:
+        - name: id
+          in: path
+          description: ID do usuário a ser excluído
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Sucesso
+    put:
+      summary: Atualiza os dados de um usuário específico
+      parameters:
+        - name: id
+          in: path
+          description: ID do usuário a ser atualizado
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: Novos dados do usuário
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              name:
+                type: string
+              password:
+                type: string
+              type:
+                type: string
+      responses:
+        '200':
+          description: Sucesso
+  /userAll:
+    get:
+      summary: Obtém todos os usuários cadastrados
+      responses:
+        '200':
+          description: Sucesso
+  /login:
+    get:
+      summary: Renderiza a página de login de usuário
+      responses:
+        '200':
+          description: Sucesso
+    post:
+      summary: Realiza o login do usuário
+      parameters:
+        - name: body
+          in: body
+          description: Credenciais de login do usuário
+          required: true
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+              password:
+                type: string
+      responses:
+        '200':
+          description: Sucesso
+  /signout:
+    get:
+      summary: Encerra a sessão do usuário
+      responses:
+        '200':
+          description: Sucesso
+  /clean:
+    delete:
+      summary: Exclui todos os usuários cadastrados
+      responses:
+        '200':
+          description: Sucesso
