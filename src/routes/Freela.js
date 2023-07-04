@@ -30,7 +30,7 @@ router
     .get((req, res)=>freelaController.renderFormUpdate(req, res));    
 
 router
-    .route('/updateFreela/:id')
+    .route('/updateFreela')
     .post((req, res)=>freelaController.updateFreela(req, res));
 
 

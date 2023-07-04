@@ -11,8 +11,10 @@ const freelaController ={
     },
 
     renderFormUpdate: async(req, res)=>{
-        console.log('oi')
-        res.render('freela/updateFreela.njk');
+        console.log('oiiiiiiiiiiii')
+        const freelaId = req.query.id;
+        console.log(freelaId)
+        res.render('freela/updateFreela.njk', {freelaId});
     },
 
     createFreela: async(req, res)=>{
@@ -142,15 +144,18 @@ const freelaController ={
     },
     updateFreela: async(req, res)=>{
         try {
-            if(await FreelaModel.findById(req.params.id)){
+            const id = req.body.freelaId
+            if(await FreelaModel.findById(id)){
                 const freela = {
+                    _id: req.body.freelaId,
                     author: req.body.author,
                     title: req.body.title,
                     description: req.body.description,
                     reward: req.body.reward,
                 }
-                const freelaUpdated = await FreelaModel.findByIdAndUpdate(req.params.id, freela);
-                res.status(201).json({message: 'freela updated', freelaUpdated});
+                const freelaUpdated = await FreelaModel.findByIdAndUpdate(id, freela);
+                console.log(freelaUpdated)
+                res.redirect('/space/feed')
             }
         } catch (error) {
             console.log(error);

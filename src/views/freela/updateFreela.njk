@@ -8,11 +8,10 @@
           <h3 class="card-title text-center">{{ title }}</h3>
           <form
             id="formFreela"
-            action="/space/updateFreela/{{freela._id}}"
+            action="/space/updateFreela"
             method="post"
           >
-            <input type="hidden" value="{{freela._id}}" name="freelaId" />
-            <input type="hidden" value="{{userId}}" name="userId" />
+            <input type="hidden" value="{{freelaId}}" name="freelaId"/>
             <div class="form-group">
               <label for="freela-title">Title</label>
               <input
