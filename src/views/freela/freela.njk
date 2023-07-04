@@ -1,46 +1,36 @@
-{% extends "layout.njk" %}
-{% include "header.njk" %}
-
-{% block content %}
+{% extends "layout.njk" %} {% include "header.njk" %} {% block content %}
 
 <div class="freela-view-container">
-    <input type = "hidden" value ="{{_id}}" name="id">
-    <h3>{{ freela.title }}</h3>
-    <p class="author-freela">Author:
-        {% for user in users %}
-            {%if user._id.toString() == freela.author.toString()%}
-                {% set author = user.name%}
-                <a href="/space/user/{{ user._id }}" class="author-link">{{ author}}</a>
-            {%endif%}
-        {%endfor%}
-    </p>
-    <p>Description: 
-        {{ freela.description }}
-    </p>
-    <p>Reward: {{ freela.reward }} treasureChest</p>
-    {% if user.type == "cowboy" %}
-        {% if not freela.visibility and user and freela.responsable and user._id.toString() == freela.responsable.toString() %}
-             <form action="/space/doneFreela" method="POST">
-            <input type = "hidden" value ="{{freela._id}}" name="id">
-                <button type="submit" class="btn-complete">Done</button>
-            </form>
-        {% else %}
-            <form action="/space/acceptFreela" method="POST">
-            <input type = "hidden" value ="{{freela._id}}" name="id">
-                <button type="submit" class="btn-complete">Accept Freela</button>
-            </form>
-        {% endif %}
-    {% else  %}
-        <form action="/space/updateFreela/{{ freela._id }}" method="get">
-            <input type = "hidden" value ="{{freela._id}}" name="id">
-                <button type="submit" class="btn-complete">edit</button>
-        </form>
-
-         <form action="/space/deleteFreela/{{ freela._id }}" method="POST">
-            <input type = "hidden" value ="{{freela._id}}">
-                <button type="submit" class="btn-complete">delete</button>
-        </form>
-    {%endif%}
+  <input type="hidden" value="{{ freela._id }}" name="id" />
+  <h3>{{ freela.title }}</h3>
+  <p class="author-freela">
+    Author: {% for user in users %} {% if user._id.toString() ==
+    freela.author.toString() %} {% set author = user.name %}
+    <a href="/space/user/{{ user._id }}" class="author-link">{{ author }}</a>
+    {% endif %} {% endfor %}
+  </p>
+  <p>Description: {{ freela.description }}</p>
+  <p>Reward: {{ freela.reward }} treasureChest</p>
+  {% if user.type == "cowboy" %} {% if not freela.visibility and user and
+  freela.responsable and user._id.toString() == freela.responsable.toString() %}
+  <form action="/space/doneFreela" method="POST">
+    <input type="hidden" value="{{ freela._id }}" name="id" />
+    <button type="submit" class="btn-complete">Done</button>
+  </form>
+  {% else %}
+  <form action="/space/acceptFreela" method="POST">
+    <input type="hidden" value="{{ freela._id }}" name="id" />
+    <button type="submit" class="btn-complete">Accept Freela</button>
+  </form>
+  {% endif %} {% else %}
+  <form action="/space/updateFreela/{{ freela._id }}" method="get">
+    <input type="hidden" value="{{ freela._id }}" name="id" />
+    <button type="submit" class="btn-complete">Edit</button>
+  </form>
+  <form action="/space/deleteFreela/{{ freela._id }}" method="POST">
+    <input type="hidden" value="{{ freela._id }}" />
+    <button type="submit" class="btn-complete">Delete</button>
+  </form>
+  {% endif %}
 </div>
-
 {% endblock %}

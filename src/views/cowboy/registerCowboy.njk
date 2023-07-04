@@ -1,28 +1,41 @@
-{% extends "layout.njk" %}
+{% extends "layout.njk" %} {% block content %}
 
-{% block content %}
+<div class="container">
+  <h1>{{ title }}</h1>
+  <div class="card">
+    <div class="card-body">
+      <form id="formCowboy" action="/space/cowboy/add" method="post">
+        <input type="hidden" value="{{userId}}" name="id" />
 
-{{ title }}
+        <div class="form-group">
+          <label for="cowboy-nick">Nick</label>
+          <input
+            type="text"
+            class="form-control"
+            id="cowboy-nick"
+            name="nick"
+            placeholder="Enter your nickname"
+            required
+          />
+        </div>
 
-<div class="box-card-login">
-    <form id="formCowboy" action="/space/cowboy/add" method="post">
-    <input type = "hidden" value ="{{userId}}" name="id">
-        <div class="form-group label">
-            <label>Nick</label>
+        <div class="form-group">
+          <label for="cowboy-treasure-chest">Treasure</label>
+          <input
+            type="number"
+            class="form-control"
+            id="cowboy-treasure-chest"
+            name="treasureChest"
+            placeholder="Enter the amount of treasure"
+            required
+          />
         </div>
-        <div class="col-md-6 form-group element">
-            <input type="text" placeholder="nick" class="form-control" id="cowboy-nick" name="nick" required>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Register Cowboy</button>
         </div>
-        <div class="form-group label">
-            <label>Tesouro</label>
-        </div>
-        <div class="col-md-6 form-group element">
-            <input type="number" placeholder="treasure chest" class="form-control" id="cowboy-treasure-chest" name="treasureChest" required>
-        </div>
-        <div class="col-md-6 form-group element">
-            <button type="submit" class="btn btn-primary">Register Cowboy</button>
-        </div>
-    </form>
+      </form>
+    </div>
+  </div>
 </div>
-
 {% endblock %}

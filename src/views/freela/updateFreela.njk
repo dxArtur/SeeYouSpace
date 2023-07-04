@@ -1,38 +1,61 @@
-{% extends "layout.njk" %}
+{% extends "layout.njk" %} {% block content %}
 
-{% block content %}
-
-{{ title }}
-
-
-<div class="box-card-login">
-    <form id="formFreela" action="/space/updateFreela/{{freela._id}}" method="post">
-    <input type = "hidden" value ="{{freela._id}}" name="freelaId">
-    <input type = "hidden" value ="{{userId}}" name="userId">
-        <div class="form-group label">
-            <label>title</label>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-center">{{ title }}</h3>
+          <form
+            id="formFreela"
+            action="/space/updateFreela/{{freela._id}}"
+            method="post"
+          >
+            <input type="hidden" value="{{freela._id}}" name="freelaId" />
+            <input type="hidden" value="{{userId}}" name="userId" />
+            <div class="form-group">
+              <label for="freela-title">Title</label>
+              <input
+                type="text"
+                placeholder="Enter title"
+                class="form-control"
+                id="freela-title"
+                name="title"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="freela-description">Description</label>
+              <input
+                type="text"
+                placeholder="Enter description"
+                class="form-control"
+                id="freela-description"
+                name="description"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="freela-reward">Reward</label>
+              <input
+                type="number"
+                placeholder="Enter reward"
+                class="form-control"
+                id="freela-reward"
+                name="reward"
+                required
+              />
+            </div>
+            <input type="hidden" name="author" value="{{ user._id }}" />
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">
+                Update Freela
+              </button>
+            </div>
+          </form>
         </div>
-        <div class="col-md-6 form-group element">
-            <input type="text" placeholder="title" class="form-control" id="freela-title" name="title" required>
-        </div>
-        <div class="form-group label">
-            <label>description</label>
-        </div>
-        <div class="col-md-6 form-group element">
-            <input type="text" placeholder="description" class="form-control" id="freela-description" name="description" required>
-        </div>
-        <div class="form-group label">
-            <label>reward</label>
-        </div>
-        <div class="col-md-6 form-group element">
-            <input type="number" placeholder="reward" class="form-control" id="freela-reward" name="reward" required>
-        </div>
-        <input type="hidden" name="author" value="{{ user._id }}">
-
-        <div class="col-md-6 form-group element">
-            <button type="submit" class="btn btn-primary">Update freela</button>
-        </div>
-    </form>
+      </div>
+    </div>
+  </div>
 </div>
-
 {% endblock %}

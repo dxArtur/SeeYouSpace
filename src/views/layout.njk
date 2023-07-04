@@ -1,54 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css">
-  <link rel="stylesheet" href="/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/layout/header.css">
-  <link rel="stylesheet" href="/css/layout/freela.css">
-  <link rel="stylesheet" href="/css/components/components.css">
-  <title>{{ title }}</title>
-  {% block style %}
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.css"
+    />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/layout/header.css" />
+    <link rel="stylesheet" href="/css/layout/freela.css" />
+    <link rel="stylesheet" href="/css/components/components.css" />
+    <title>{{ title }}</title>
+    {% block style %}
     <style>
-        @font-face {
-        font-family: inter;
-        src: url('../fonts/inter/Inter-ExtraLight.ttf') format('truetype');
-    
-        }
-        /*setando font*/
-        html {
-            font-family: inter, Arial, Helvetica, sans-serif;
-                
-        }
+      @font-face {
+        font-family: "Inter";
+        src: url("../fonts/inter/Inter-ExtraLight.ttf") format("truetype");
+      }
 
-        body {
-            height: 100vh; /* Definir altura total da página */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-image: url('/imgs/bg_space01.jpg');
-            background-size: cover;
-        }
+      /* Definir fonte */
+      html {
+        font-family: "Inter", Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: url("/imgs/bg_space01.jpg");
+        background-size: cover;
+        color: #ffffff;
+      }
+
+      h1 {
+        font-weight: 600;
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      p {
+        font-weight: 300;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
     </style>
-  {% endblock %}
-</head>
-<body>
-  <div id="container" class="container">
-    {%block header %}
-      {% if user %}
-      {% include "header.njk" %}
-      {% endif %}
     {% endblock %}
-    {% block content %}
-      
-    {% endblock %}
-  </div>
-  <script src="/js/jquery.min.js"></script>
-  <script src="/js/popper.min.js"></script>
-  <script src="/js/bootstrap.min.js"></script>
-  {% block script %}
-  {% endblock %}
-</body>
+  </head>
+  <body>
+    <div id="container" class="container">
+      {% block header %} {% if user %} {% include "header.njk" %} {% endif %} {%
+      endblock %} {% block content %} {% endblock %}
+    </div>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    {% block script %} {% endblock %}
+  </body>
 </html>

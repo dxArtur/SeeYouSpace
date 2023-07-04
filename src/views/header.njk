@@ -4,7 +4,7 @@
   <div class="menu-container">
     <nav class="menu-top">
       <ul>
-        <li><a href="/">See You Space</a></li>
+        <li><a href="/space/feed">See You Space</a></li>
         <li class="form">
           <form action="/search" method="GET">
             <input type="text" name="query" placeholder="Search...">
@@ -14,10 +14,9 @@
         <nav class="items-menu">
           <li><a href="/space/myfreelas">freelas</a></li>
           <li><a href="/space/user/{{ user._id }}">profile</a></li>
-          <li><a href="/">seetings</a></li>
         </nav>
         <nav class="welcome">
-          <li><a href="/space/signout" >hi, {{ user.name }}!</a></li>
+          <li><a href="/space/user/{{ user._id }}" >hi, {{ user.name }}!</a></li>
       </ul>
     </nav>
   </div>

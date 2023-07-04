@@ -1,22 +1,24 @@
 @font-face {
     font-family: 'inter';
     src: url('../fonts/inter/Inter-Regular.ttf') format('truetype');
-    
+
 }
 
 @font-face {
     font-family: 'inter-thin';
     src: url('../fonts/inter/Inter-Thin.ttf') format('truetype');
-    
+
 }
+
 /*setando font*/
 html {
     font-family: 'inter', Arial, Helvetica, sans-serif;
-        
+
 }
 
 body {
-    height: 100vh; /* Definir altura total da página */
+    height: 100vh;
+    /* Definir altura total da página */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,20 +26,17 @@ body {
     background-size: cover;
 }
 
-
-
-
-
 .form-group {
-    margin-bottom: 3%; /* Espaçamento entre as linhas */
+    margin-bottom: 3%;
+    /* Espaçamento entre as linhas */
     color: white;
 }
 
-.form-group label{
+.form-group label {
     font-family: 'inter-thin', sans-serif;
-    
+
     font-size: xx-large;
-    
+
 }
 
 .box-card-login {
@@ -46,29 +45,18 @@ body {
     align-items: center;
     margin: 1%;
     justify-content: center;
-  }
-  
-  .box-card-login .row {
+}
+
+.box-card-login .row {
     display: flex;
     justify-content: space-between;
-  }
-  
-  .box-card-login .form-group {
+}
+
+.box-card-login .form-group {
     align-items: center;
     display: flex;
     flex-direction: column;
-  }
-
-
-
-
-
-
-
-
-
-
-
+}
 
 /*
 .box-card-login form .form-group.label {
@@ -77,13 +65,10 @@ body {
   }
 */
 
-
 /*posicionando os elementos em linhas um abaixo do outro na div*/
 
-
-
-  
-input,  textarea {
+input,
+textarea {
     display: inline-block;
 }
 
@@ -92,17 +77,15 @@ input,  textarea {
     display: flex;
     flex-direction: column;
     align-items: center;
-    
-  }
 
+}
 
-h1{
+h1 {
     color: var(--color-green);
     background-position: center;
 }
 
-
-.box-card-login{
+.box-card-login {
     width: 104%;
     height: 50%;
     border-radius: 4px;
@@ -115,7 +98,6 @@ h1{
     font-size: 15pt;
 }
 
-
 .box-card-login form#formUser {
     margin: 0;
     padding: 0;
@@ -125,18 +107,9 @@ h1{
     justify-content: center;
 }
 
-
-
-
-
-
-
-
-:root{
+:root {
     --color-gray-background: #474747;
     --color-white: white;
     --color-background: #292929;
     --color-green: rgb(21, 184, 21);
 }
-
-

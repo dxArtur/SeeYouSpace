@@ -1,18 +1,17 @@
-{% extends "layout.njk" %}
+{% extends "layout.njk" %} {% block content %}
 
-{% block content %}
-
-{{ title }}
-
-<div class="profile-details">
-    <h3>{{ user.name }}</h3>
-    <p>Email: {{ user.email }}</p>
-    <h4>Freelas to-DO:</h4>
-    <ul>
-        {% for freela in user.freelaDone %}
-            <li>{{ freela.title }}</li>
-        {% endfor %}
+<div class="profile">
+  <div class="profile-details">
+    <h2 class="profile-name">{{ user.name }}</h2>
+    <p class="profile-email">Email: {{ user.email }}</p>
+  </div>
+  <div class="profile-freelas">
+    <h3 class="freelas-title">Freelas Concluídos:</h3>
+    <ul class="freelas-list">
+      {% for freela in user.freelaDone %}
+      <li class="freela-item">{{ freela.title }}</li>
+      {% endfor %}
     </ul>
+  </div>
 </div>
-
 {% endblock %}

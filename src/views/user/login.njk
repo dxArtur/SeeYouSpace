@@ -1,31 +1,33 @@
-{% extends "layout.njk" %}
+{% extends "layout.njk" %} {% block content %}
 
-
-{% block content %}
-
-  {{ title }}
-
-
-<div class ="box-card-login">
-    
-    <form id="formUser" action="/space/login" method="post">
-        <div class="form-group label">
-            <label>Login</label>
-        </div>
-        <div class="col-md-6 form-group element">
-            <input type="email" placeholder="email" class="form-control" id="user-email" name="email">
-        </div>
-        <div class="col-md-6 form-group element">
-            <input type="password" placeholder="password" class="form-control" id="user-password" name="password">
-        </div>
-            <div class="col-md-6 form-group element">
-            <button type="submit" class="btn btn-primary">See You Space</button>
-        </div>
-        
-    </form>
+<h1>{{ title }}</h1>
+<div class="login-card">
+  <form id="formUser" action="/space/login" method="post">
+    <div class="form-group">
+      <label for="user-email">Login</label>
+      <input
+        type="email"
+        id="user-email"
+        name="email"
+        placeholder="Email"
+        class="form-control"
+      />
+    </div>
+    <div class="form-group">
+      <label for="user-password">Password</label>
+      <input
+        type="password"
+        id="user-password"
+        name="password"
+        placeholder="Password"
+        class="form-control"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">See You Space</button>
+  </form>
 </div>
-<br>
-<div class="card-register">
-    <a class="btn-register" href="/space/user/add"> register> </a>
+<div class="register-card">
+  <p>Don't have an account?</p>
+  <a class="btn-register" href="/space/user/add">Register Now</a>
 </div>
 {% endblock %}

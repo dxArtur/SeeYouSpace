@@ -13,16 +13,10 @@ const { isCelebrateError } = require('celebrate');
 
 const logger = require('morgan');
 
-
-
-
-
-
 //set dotenv
 require('dotenv').config();
 
 const mongoDBurl = process.env.MONGODB_URL;
-
 
 //Allowing you to read JSON files.
 app.use(express.json());
@@ -33,11 +27,11 @@ app.use(cookieParser());
 app.use(
     session({
         secret: process.env.SECRET,
-        store: MongoStore.create({mongoUrl: mongoDBurl}),
+        store: MongoStore.create({ mongoUrl: mongoDBurl }),
         name: 'sessionId',
         resave: false,
         saveUninitialized: true,
-        cookie: {  maxAge : 7  *  24  *  60  *  60  *  1000 } 
+        cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 }
     })
 );
 
@@ -46,8 +40,6 @@ app.use(flash());
 //router
 const routes = require('./routes/router');
 app.use('/space', routes);
-
-
 
 //connecting with the bank
 const conn = require('./db/conn');
@@ -80,7 +72,6 @@ app.use('/', (req, res, next)=>{
 
 const port = process.env.PORT || 3000
 
-
-app.listen(port, ()=>{
+app.listen(port, () => {
     console.log('see you space...');
 });

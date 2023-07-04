@@ -1,41 +1,33 @@
-{% extends "layout.njk" %}
+{% extends "layout.njk" %} {% include "header.njk" %} {% block content %}
+<h1>{{ title }}</h1>
 
-{% include "header.njk" %}
+{% if user %} {% if user.type === 'shooter' %}
+<form action="/space/freela/add" method="get">
+  <input type="hidden" value="{{ user._id }}" name="id" />
+  <button type="submit" class="btn-complete">Add New Freela</button>
+</form>
+{% endif %} {% endif %}
 
-{% block content %}
-
-{{ title }}
-
-
-{% if user %}
-    {% if user.type === 'shooter' %}
-    <form action="/space/freela/add" method="get">
-            <input type = "hidden" value ="{{user._id}}" name="id">
-                <button type="submit" class="btn-complete">add new freela</button>
-        </form>
-    {% endif %}
-{% endif %}
 <div class="myfreela-container">
-    <div class="freela-container">
-        {% for freela in freelas %}
-                <a href="/space/freela/{{ freela._id }}" class="freela-link" method="GET">
-                    <div class="freela-card">
-                        <h3 class="title-freela">{{ freela.title }}</h3>
-                        <div class="row-vertical"></div>
-                        <p class="reward-freela">{{ freela.reward }} Treasure Chest</p>
-                        {% set author = null %}
-                        <p class="author-freela">
-                            {% for user in users %}
-                                {%if user._id.toString() == freela.author.toString()%}
-                                    {% set author = user.name%}
-                                    <a href="/space/user/{{ user._id }}" class="author-link">{{ author}}</a>
-                                {%endif%}
-                            {%endfor%}
-                        </p>
-                    </div>
-                </a>
-              
-        {% endfor %}
-    </div>
+  <div class="freela-container">
+    {% for freela in freelas %}
+    <a href="/space/freela/{{ freela._id }}" class="freela-link" method="GET">
+      <div class="freela-card">
+        <h3 class="title-freela">{{ freela.title }}</h3>
+        <div class="row-vertical"></div>
+        <p class="reward-freela">{{ freela.reward }} Treasure Chest</p>
+        {% set author = null %}
+        <p class="author-freela">
+          {% for user in users %} {% if user._id.toString() ==
+          freela.author.toString() %} {% set author = user.name %}
+          <a href="/space/user/{{ user._id }}" class="author-link"
+            >{{ author }}</a
+          >
+          {% endif %} {% endfor %}
+        </p>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

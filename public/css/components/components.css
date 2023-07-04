@@ -3,7 +3,7 @@
     border-style: none;
     width: 70%;
     height: 25px;
-    
+
 }
 
 .menu-top li form button {
@@ -11,22 +11,23 @@
     border-style: none;
 }
 
-
-.form-group input{
+.form-group input {
     border-radius: 8px;
-    border:none;
+    border: none;
     height: 25px;
     text-align: center;
-    
+
 }
 
 .box-card-login input::placeholder {
-    text-align: center; /* Centraliza horizontalmente */
-    line-height: inherit; /* Centraliza verticalmente */
-  }
+    text-align: center;
+    /* Centraliza horizontalmente */
+    line-height: inherit;
+    /* Centraliza verticalmente */
+}
 
 /*estilizando botão*/
-.form-group button{
+.form-group button {
     border-radius: 10px;
     border: none;
     background-color: var(--color-green);
@@ -34,8 +35,7 @@
     height: 25px;
 }
 
-
-.btn-accept{
+.btn-accept {
     border-radius: 10px;
     border: none;
     background-color: var(--color-green);
@@ -44,12 +44,12 @@
     float: right;
 }
 
-.card-register{
-    text-align: center; 
+.card-register {
+    text-align: center;
 }
 
-.btn-register{
+.btn-register {
     color: var(--color-white);
     opacity: 0.7;
-    
+
 }
